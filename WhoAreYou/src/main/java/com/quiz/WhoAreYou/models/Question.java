@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "questions")
-public class QuestionAndChoice {
+public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class QuestionAndChoice {
     @ManyToMany(mappedBy = "questions")
     private List<Quiz> quizzes;
 
-    public QuestionAndChoice(String question,
+    public Question(String question,
                              String optionA,
                              String optionB,
                              String optionC,
@@ -51,7 +51,7 @@ public class QuestionAndChoice {
         this.quizzes = new ArrayList<Quiz>();
     }
 
-    public QuestionAndChoice() {
+    public Question() {
     }
 
 
