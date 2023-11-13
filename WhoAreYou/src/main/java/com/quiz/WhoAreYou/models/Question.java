@@ -1,5 +1,6 @@
 package com.quiz.WhoAreYou.models;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -14,52 +15,42 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private long id;
+    @Column
+    private Long id;
 
 
     @Column
     private String question;
+    @Column
+    private String zsoltAnswer;
+    @Column
+    private String annaAnswer;
+    @Column
+    private String colinAnswer;
+    @Column
+    private String thibyaaAnswer;
 
-    @Column
-    private String optionA;
-    @Column
-    private String optionB;
-    @Column
-    private String optionC;
-    @Column
-    private String optionD;
-
-    @Column
-    private HashMap<String,String> answerKey;
-
-
-    @JsonIgnoreProperties({"questions"})
     @ManyToMany(mappedBy = "questions")
+    @JsonIgnoreProperties({"questions"})
     private List<Quiz> quizzes;
 
-    public Question(String question,
-                             String optionA,
-                             String optionB,
-                             String optionC,
-                             String optionD) {
+    public Question(String question, String zsoltAnswer, String annaAnswer, String colinAnswer, String thibyaaAnswer) {
         this.question = question;
-        this.optionA = optionA;
-        this.optionB = optionB;
-        this.optionC = optionC;
-        this.optionD = optionD;
-        this.answerKey = new HashMap<String,String>();
-        this.quizzes = new ArrayList<Quiz>();
+        this.zsoltAnswer = zsoltAnswer;
+        this.annaAnswer = annaAnswer;
+        this.colinAnswer = colinAnswer;
+        this.thibyaaAnswer = thibyaaAnswer;
+        this.quizzes = new ArrayList<>();
     }
 
     public Question() {
     }
 
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -71,44 +62,36 @@ public class Question {
         this.question = question;
     }
 
-    public String getOptionA() {
-        return optionA;
+    public String getZsoltAnswer() {
+        return zsoltAnswer;
     }
 
-    public void setOptionA(String optionA) {
-        this.optionA = optionA;
+    public void setZsoltAnswer(String zsoltAnswer) {
+        this.zsoltAnswer = zsoltAnswer;
     }
 
-    public String getOptionB() {
-        return optionB;
+    public String getAnnaAnswer() {
+        return annaAnswer;
     }
 
-    public void setOptionB(String optionB) {
-        this.optionB = optionB;
+    public void setAnnaAnswer(String annaAnswer) {
+        this.annaAnswer = annaAnswer;
     }
 
-    public String getOptionC() {
-        return optionC;
+    public String getColinAnswer() {
+        return colinAnswer;
     }
 
-    public void setOptionC(String optionC) {
-        this.optionC = optionC;
+    public void setColinAnswer(String colinAnswer) {
+        this.colinAnswer = colinAnswer;
     }
 
-    public String getOptionD() {
-        return optionD;
+    public String getThibyaaAnswer() {
+        return thibyaaAnswer;
     }
 
-    public void setOptionD(String optionD) {
-        this.optionD = optionD;
-    }
-
-    public HashMap<String, String> getAnswerKey() {
-        return answerKey;
-    }
-
-    public void setAnswerKey(HashMap<String, String> answerKey) {
-        this.answerKey = answerKey;
+    public void setThibyaaAnswer(String thibyaaAnswer) {
+        this.thibyaaAnswer = thibyaaAnswer;
     }
 
     public List<Quiz> getQuizzes() {
