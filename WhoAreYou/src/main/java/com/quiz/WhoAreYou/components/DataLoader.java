@@ -40,6 +40,9 @@ public class DataLoader implements ApplicationRunner {
 
         quizRepository.save(quiz1);
 
+        quiz1.addQuestion(question1);
+
+        quizRepository.save(quiz1);
     }
 
 }
