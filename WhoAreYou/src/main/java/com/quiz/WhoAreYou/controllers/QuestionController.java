@@ -2,11 +2,13 @@ package com.quiz.WhoAreYou.controllers;
 
 import com.quiz.WhoAreYou.models.Question;
 import com.quiz.WhoAreYou.models.QuestionDTO;
+import com.quiz.WhoAreYou.repositories.QuestionRepository;
 import com.quiz.WhoAreYou.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +18,9 @@ import java.util.Optional;
 public class QuestionController {
     @Autowired
     QuestionService questionService;
+
+    @Autowired
+    QuestionRepository questionRepository;
 
     @GetMapping
     public ResponseEntity<List<Question>> getAllQuestions(){
@@ -46,6 +51,17 @@ public class QuestionController {
         } else{
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<Question> updateQuestionById(@PathVariable Long id, @RequestBody QuestionDTO questionDTO){
+        try {
+            Question updateQuestion = questionService.updateQuestionById(id, questionDTO);
+            return new ResponseEntity<>(updateQuestion, HttpStatus.OK);
+        } catch (ResponseStatusException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
 
