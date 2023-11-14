@@ -22,13 +22,14 @@ public class Quiz {
     @Column
     private Boolean isFinished;
 
-
-
+    @Column
     private int zsoltScore;
+    @Column
     private int colinScore;
+    @Column
     private int annaScore;
+    @Column
     private int thibyaaScore;
-
 
     @JsonIgnore
     @ManyToMany
