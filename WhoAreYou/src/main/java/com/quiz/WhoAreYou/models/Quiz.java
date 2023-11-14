@@ -31,12 +31,11 @@ public class Quiz {
     @Column
     private int thibyaaScore;
 
-    @JsonIgnore
+    @JsonIgnoreProperties({"quizzes"})
     @ManyToMany
     @JoinTable(name = "quizzes_questions",
             joinColumns = @JoinColumn(name = "quiz_id"),
             inverseJoinColumns = @JoinColumn(name = "question_id"))
-
     private List<Question> questions;
 
     public Quiz(Boolean isFinished, int zsoltScore, int colinScore, int annaScore, int thibyaaScore){
@@ -109,5 +108,8 @@ public class Quiz {
 
     public void removeQuestion(Question question) {
         this.questions.remove(question);
+    }
+
+    public void addQuestion(Question question) { this.questions.add(question);
     }
 }

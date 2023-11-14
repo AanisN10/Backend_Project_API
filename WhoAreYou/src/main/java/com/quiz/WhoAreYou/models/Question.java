@@ -40,7 +40,7 @@ public class Question {
     private String optionD;
 
     @ManyToMany(mappedBy = "questions")
-    @JsonIgnore
+    @JsonIgnoreProperties({"questions"})
     private List<Quiz> quizzes;
 
     public Question(String question,

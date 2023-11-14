@@ -2,6 +2,7 @@ package com.quiz.WhoAreYou.controllers;
 
 import com.quiz.WhoAreYou.models.Question;
 import com.quiz.WhoAreYou.models.Quiz;
+import com.quiz.WhoAreYou.models.QuizDTO;
 import com.quiz.WhoAreYou.services.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,8 @@ public class QuizController {
     }
 
     @PostMapping
-
+    public ResponseEntity<Quiz> makeNewQuiz(@RequestBody QuizDTO quizDTO){
+        return new ResponseEntity<>(quizService.addNewQuiz(quizDTO), HttpStatus.CREATED);
+    }
 
 }
