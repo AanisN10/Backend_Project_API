@@ -1,6 +1,7 @@
 package com.quiz.WhoAreYou.services;
 
 import com.quiz.WhoAreYou.models.QuestionDTO;
+import com.quiz.WhoAreYou.models.Quiz;
 import com.quiz.WhoAreYou.repositories.QuestionRepository;
 import com.quiz.WhoAreYou.models.Question;
 import com.quiz.WhoAreYou.repositories.QuizRepository;
@@ -30,5 +31,19 @@ public class QuestionService {
 
         questionRepository.save(question);
         return question;
+    }
+
+    public Long removeQuestionFromQuiz(Long id) {
+        if (questionRepository.findById(id).isPresent()) {
+            Question question = questionRepository.getById(id);
+            for (Quiz quiz : question.getQuizzes()) {
+                quiz.removeQuestion(question);
+            }
+            questionRepository.deleteById(id);
+            return id;
+        } else {
+            return null;
+        }
+
     }
 }
