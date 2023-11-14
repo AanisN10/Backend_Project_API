@@ -1,6 +1,7 @@
 package com.quiz.WhoAreYou.components;
 
 import com.quiz.WhoAreYou.models.Question;
+import com.quiz.WhoAreYou.models.Quiz;
 import com.quiz.WhoAreYou.repositories.QuestionRepository;
 import com.quiz.WhoAreYou.repositories.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class DataLoader implements ApplicationRunner {
 
         questionRepository.save(question1);
 
+        Quiz quiz1 = new Quiz(false,0,0,0,0);
+
+        quizRepository.save(quiz1);
     }
 
 }

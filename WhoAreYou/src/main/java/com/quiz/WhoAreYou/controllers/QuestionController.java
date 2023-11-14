@@ -19,9 +19,6 @@ public class QuestionController {
     @Autowired
     QuestionService questionService;
 
-    @Autowired
-    QuestionRepository questionRepository;
-
     @GetMapping
     public ResponseEntity<List<Question>> getAllQuestions(){
         return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
