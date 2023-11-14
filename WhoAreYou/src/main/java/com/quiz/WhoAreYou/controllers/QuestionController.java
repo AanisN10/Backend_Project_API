@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/questions")
@@ -33,6 +34,17 @@ public class QuestionController {
             return new ResponseEntity<>(id, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Question> getQuestionById(@PathVariable Long id){
+        Optional<Question> getQuestionById = questionService.findQuestionById(id);
+        if(getQuestionById.isPresent()){
+            return new ResponseEntity<>(getQuestionById.get(), HttpStatus.OK);
+        } else{
+            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
