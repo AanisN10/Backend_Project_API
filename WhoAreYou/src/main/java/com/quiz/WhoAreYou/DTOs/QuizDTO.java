@@ -1,4 +1,4 @@
-package com.quiz.WhoAreYou.models;
+package com.quiz.WhoAreYou.DTOs;
 
 import jakarta.persistence.Column;
 

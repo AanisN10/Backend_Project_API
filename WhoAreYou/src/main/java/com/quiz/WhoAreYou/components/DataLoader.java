@@ -27,10 +27,10 @@ public class DataLoader implements ApplicationRunner {
 
         Question question1 = new Question(
                 "What is your favourite colour",
-                "A) Purple",
-                "B) Blue",
-                "C) Red",
-                "D) Green",
+                "Purple",
+                "Blue",
+                "Red",
+                "Green",
                 "C","D",
                 "A","B");
 

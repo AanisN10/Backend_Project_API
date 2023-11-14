@@ -1,8 +1,8 @@
 package com.quiz.WhoAreYou.services;
 
-import com.quiz.WhoAreYou.models.AddRemoveQuestionDTO;
+import com.quiz.WhoAreYou.DTOs.AddRemoveQuestionDTO;
 import com.quiz.WhoAreYou.models.Quiz;
-import com.quiz.WhoAreYou.models.QuizDTO;
+import com.quiz.WhoAreYou.DTOs.QuizDTO;
 import com.quiz.WhoAreYou.repositories.QuestionRepository;
 import com.quiz.WhoAreYou.repositories.QuizRepository;
 import jakarta.transaction.Transactional;

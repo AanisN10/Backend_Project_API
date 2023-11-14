@@ -1,6 +1,6 @@
 package com.quiz.WhoAreYou.services;
 
-import com.quiz.WhoAreYou.models.QuestionDTO;
+import com.quiz.WhoAreYou.DTOs.QuestionDTO;
 import com.quiz.WhoAreYou.models.Quiz;
 import com.quiz.WhoAreYou.repositories.QuestionRepository;
 import com.quiz.WhoAreYou.models.Question;

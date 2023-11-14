@@ -1,8 +1,8 @@
 package com.quiz.WhoAreYou.controllers;
 
-import com.quiz.WhoAreYou.models.AddRemoveQuestionDTO;
+import com.quiz.WhoAreYou.DTOs.AddRemoveQuestionDTO;
 import com.quiz.WhoAreYou.models.Quiz;
-import com.quiz.WhoAreYou.models.QuizDTO;
+import com.quiz.WhoAreYou.DTOs.QuizDTO;
 import com.quiz.WhoAreYou.services.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +24,7 @@ public class QuizController {
     }
 
     @GetMapping (value = "/{id}")
-
     public ResponseEntity<Quiz> getQuizById(@PathVariable Long id){
-
         Optional<Quiz> getQuizById = quizService.findQuizById(id);
         if(getQuizById.isPresent()){
             return new ResponseEntity<>(getQuizById.get(), HttpStatus.OK);
@@ -39,6 +37,7 @@ public class QuizController {
     public ResponseEntity<Quiz> makeNewQuiz(@RequestBody QuizDTO quizDTO){
         return new ResponseEntity<>(quizService.addNewQuiz(quizDTO), HttpStatus.CREATED);
     }
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Long> deleteQuizById(@PathVariable Long id){
         Long removeById = quizService.removeQuizById(id);
@@ -47,7 +46,6 @@ public class QuizController {
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @PostMapping(value = "/{id}")
@@ -59,8 +57,5 @@ public class QuizController {
     public ResponseEntity<Quiz> removeQuestionsFromQuiz(@PathVariable Long id, @RequestBody AddRemoveQuestionDTO removeQuestionDTO){
         return new ResponseEntity<>(quizService.removeQuestionFromQuiz(id,removeQuestionDTO),HttpStatus.OK);
     }
-
-
-
 
 }

@@ -1,8 +1,7 @@
 package com.quiz.WhoAreYou.controllers;
 
 import com.quiz.WhoAreYou.models.Question;
-import com.quiz.WhoAreYou.models.QuestionDTO;
-import com.quiz.WhoAreYou.repositories.QuestionRepository;
+import com.quiz.WhoAreYou.DTOs.QuestionDTO;
 import com.quiz.WhoAreYou.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/questions")
 public class QuestionController {
+
     @Autowired
     QuestionService questionService;
 
@@ -39,7 +39,6 @@ public class QuestionController {
         }
     }
 
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<Question> getQuestionById(@PathVariable Long id){
         Optional<Question> getQuestionById = questionService.findQuestionById(id);
@@ -58,10 +57,5 @@ public class QuestionController {
         } catch (ResponseStatusException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
-
-
-
-
 }
