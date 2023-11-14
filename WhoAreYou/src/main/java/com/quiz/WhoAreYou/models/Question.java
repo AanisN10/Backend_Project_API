@@ -155,4 +155,8 @@ public class Question {
     public void setOptionD(String optionD) {
         this.optionD = optionD;
     }
+
+    public void addQuiz(Quiz quiz){
+        this.quizzes.add(quiz);
+    }
 }
