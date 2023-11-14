@@ -28,8 +28,12 @@ public class QuestionController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Long> deleteQuestion(@PathVariable Long id){
-        questionService.removeQuestionFromQuiz(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        Long removeById = questionService.removeQuestionFromQuiz(id);
+        if (removeById != null) {
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 
