@@ -62,10 +62,10 @@ public class QuizService {
             Quiz quiz = quizRepository.findById(id).get();
             //List<Question> questions = addQuestionDTO;
 
-            for(Long questionId : addQuestionDTO.getQuestionIds()){
+            for(Long questionId : addQuestionDTO.getQuestionIds()){ //loops through Ids in DTO
                 if (questionRepository.findById(questionId).isPresent()){
-                    quiz.addQuestion(questionRepository.findById(questionId).get());
-                    questionRepository.findById(questionId).get().addQuiz(quiz);
+                    quiz.addQuestion(questionRepository.findById(questionId).get()); //adds question to quiz
+                    questionRepository.findById(questionId).get().addQuiz(quiz); //adds quiz to question
                 }
             }
             quizRepository.save(quiz);
