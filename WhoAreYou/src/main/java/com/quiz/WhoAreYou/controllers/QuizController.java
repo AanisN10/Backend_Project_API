@@ -1,5 +1,6 @@
 package com.quiz.WhoAreYou.controllers;
 
+import com.quiz.WhoAreYou.models.AddQuestionDTO;
 import com.quiz.WhoAreYou.models.Question;
 import com.quiz.WhoAreYou.models.Quiz;
 import com.quiz.WhoAreYou.models.QuizDTO;
@@ -49,5 +50,11 @@ public class QuizController {
         }
 
     }
+
+    @PostMapping(value = "/{id}")
+    public ResponseEntity<Quiz> addQuestionsToQuiz(@PathVariable Long id, @RequestBody AddQuestionDTO addQuestionDTO){
+        return new ResponseEntity<>(quizService.addQuestionsToQuiz(id,addQuestionDTO),HttpStatus.OK);
+    }
+
 
 }

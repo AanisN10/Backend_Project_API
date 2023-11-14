@@ -1,10 +1,14 @@
 package com.quiz.WhoAreYou.services;
 
+import com.quiz.WhoAreYou.models.AddQuestionDTO;
+import com.quiz.WhoAreYou.models.Question;
 import com.quiz.WhoAreYou.models.Quiz;
 import com.quiz.WhoAreYou.models.QuizDTO;
 import com.quiz.WhoAreYou.repositories.QuestionRepository;
 import com.quiz.WhoAreYou.repositories.QuizRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +52,25 @@ public class QuizService {
            return null;
        }
 
+    }
+
+    @Transactional
+    public Quiz addQuestionsToQuiz(Long id, AddQuestionDTO addQuestionDTO) {
+        if (quizRepository.findById(id).isEmpty()){
+            return null;
+        }else{
+            Quiz quiz = quizRepository.findById(id).get();
+            //List<Question> questions = addQuestionDTO;
+
+            for(Long questionId : addQuestionDTO.getQuestionIds()){
+                if (questionRepository.findById(questionId).isPresent()){
+                    quiz.addQuestion(questionRepository.findById(questionId).get());
+                    questionRepository.findById(questionId).get().addQuiz(quiz);
+                }
+            }
+            quizRepository.save(quiz);
+            return quiz;
+
+        }
     }
 }
