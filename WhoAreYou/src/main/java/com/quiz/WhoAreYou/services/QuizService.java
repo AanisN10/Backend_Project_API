@@ -39,4 +39,14 @@ public class QuizService {
         quizRepository.save(quiz);
         return quiz;
     }
+
+    public Long removeQuizById(Long id) {
+       if(quizRepository.findById(id).isPresent()){
+           quizRepository.deleteById(id);
+           return id;
+       } else{
+           return null;
+       }
+
+    }
 }

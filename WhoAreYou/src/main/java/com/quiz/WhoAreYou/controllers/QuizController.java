@@ -39,5 +39,15 @@ public class QuizController {
     public ResponseEntity<Quiz> makeNewQuiz(@RequestBody QuizDTO quizDTO){
         return new ResponseEntity<>(quizService.addNewQuiz(quizDTO), HttpStatus.CREATED);
     }
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Long> deleteQuizById(@PathVariable Long id){
+        Long removeById = quizService.removeQuizById(id);
+        if(removeById != null){
+            return new ResponseEntity<Long>(id, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
 
 }
