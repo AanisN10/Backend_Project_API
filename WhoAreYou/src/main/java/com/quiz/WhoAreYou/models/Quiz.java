@@ -1,6 +1,7 @@
 package com.quiz.WhoAreYou.models;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -29,11 +30,12 @@ public class Quiz {
     private int thibyaaScore;
 
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "quizzes_questions",
             joinColumns = @JoinColumn(name = "quiz_id"),
             inverseJoinColumns = @JoinColumn(name = "question_id"))
-    @JsonIgnoreProperties({"questions"})
+
     private List<Question> questions;
 
     public Quiz(Boolean isFinished, int zsoltScore, int colinScore, int annaScore, int thibyaaScore){

@@ -1,6 +1,7 @@
 package com.quiz.WhoAreYou.models;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -29,18 +30,39 @@ public class Question {
     private String colinAnswer;
     @Column
     private String thibyaaAnswer;
+    @Column
+    private String optionA;
+    @Column
+    private String optionB;
+    @Column
+    private String optionC;
+    @Column
+    private String optionD;
 
     @ManyToMany(mappedBy = "questions")
-    @JsonIgnoreProperties({"questions"})
+    @JsonIgnore
     private List<Quiz> quizzes;
 
-    public Question(String question, String zsoltAnswer, String annaAnswer, String colinAnswer, String thibyaaAnswer) {
+    public Question(String question,
+                    String optionA,
+                    String optionB,
+                    String optionC,
+                    String optionD,
+                    String zsoltAnswer,
+                    String annaAnswer,
+                    String colinAnswer,
+                    String thibyaaAnswer
+                    ) {
         this.question = question;
         this.zsoltAnswer = zsoltAnswer;
         this.annaAnswer = annaAnswer;
         this.colinAnswer = colinAnswer;
         this.thibyaaAnswer = thibyaaAnswer;
-        this.quizzes = new ArrayList<>();
+        this.optionA = optionA;
+        this.optionB = optionB;
+        this.optionC = optionC;
+        this.optionD = optionD;
+        this.quizzes = new ArrayList<Quiz>();
     }
 
     public Question() {
@@ -100,5 +122,37 @@ public class Question {
 
     public void setQuizzes(List<Quiz> quizzes) {
         this.quizzes = quizzes;
+    }
+
+    public String getOptionA() {
+        return optionA;
+    }
+
+    public void setOptionA(String optionA) {
+        this.optionA = optionA;
+    }
+
+    public String getOptionB() {
+        return optionB;
+    }
+
+    public void setOptionB(String optionB) {
+        this.optionB = optionB;
+    }
+
+    public String getOptionC() {
+        return optionC;
+    }
+
+    public void setOptionC(String optionC) {
+        this.optionC = optionC;
+    }
+
+    public String getOptionD() {
+        return optionD;
+    }
+
+    public void setOptionD(String optionD) {
+        this.optionD = optionD;
     }
 }
