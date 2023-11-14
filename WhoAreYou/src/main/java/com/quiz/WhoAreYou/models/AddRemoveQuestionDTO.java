@@ -2,15 +2,15 @@ package com.quiz.WhoAreYou.models;
 
 import java.util.List;
 
-public class AddQuestionDTO {
+public class AddRemoveQuestionDTO {
 
     private List<Long> questionIds;
 
-    public AddQuestionDTO(List<Long> questionIds) {
+    public AddRemoveQuestionDTO(List<Long> questionIds) {
         this.questionIds = questionIds;
     }
 
-    public AddQuestionDTO() {
+    public AddRemoveQuestionDTO() {
     }
 
     public List<Long> getQuestionIds() {

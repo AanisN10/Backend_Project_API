@@ -1,14 +1,12 @@
 package com.quiz.WhoAreYou.services;
 
-import com.quiz.WhoAreYou.models.AddQuestionDTO;
-import com.quiz.WhoAreYou.models.Question;
+import com.quiz.WhoAreYou.models.AddRemoveQuestionDTO;
 import com.quiz.WhoAreYou.models.Quiz;
 import com.quiz.WhoAreYou.models.QuizDTO;
 import com.quiz.WhoAreYou.repositories.QuestionRepository;
 import com.quiz.WhoAreYou.repositories.QuizRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,17 +53,34 @@ public class QuizService {
     }
 
     @Transactional
-    public Quiz addQuestionsToQuiz(Long id, AddQuestionDTO addQuestionDTO) {
+    public Quiz addQuestionsToQuiz(Long id, AddRemoveQuestionDTO addRemoveQuestionDTO) {
         if (quizRepository.findById(id).isEmpty()){
             return null;
         }else{
             Quiz quiz = quizRepository.findById(id).get();
-            //List<Question> questions = addQuestionDTO;
+            //List<Question> questions = addRemoveQuestionDTO;
 
-            for(Long questionId : addQuestionDTO.getQuestionIds()){ //loops through Ids in DTO
+            for(Long questionId : addRemoveQuestionDTO.getQuestionIds()){ //loops through Ids in DTO
                 if (questionRepository.findById(questionId).isPresent()){
                     quiz.addQuestion(questionRepository.findById(questionId).get()); //adds question to quiz
                     questionRepository.findById(questionId).get().addQuiz(quiz); //adds quiz to question
+                }
+            }
+            quizRepository.save(quiz);
+            return quiz;
+
+        }
+    }
+
+    public Quiz removeQuestionFromQuiz(Long id, AddRemoveQuestionDTO removeQuestionDTO) {
+        if(quizRepository.findById(id).isEmpty()){
+            return null;
+        }else {
+            Quiz quiz = quizRepository.findById(id).get();
+
+            for (Long questionId : removeQuestionDTO.getQuestionIds()){
+                if(questionRepository.findById(questionId).isPresent() && (quiz.getQuestions().contains(questionRepository.findById(questionId).get()))){
+                    quiz.removeQuestion(questionRepository.getById(questionId));
                 }
             }
             quizRepository.save(quiz);
