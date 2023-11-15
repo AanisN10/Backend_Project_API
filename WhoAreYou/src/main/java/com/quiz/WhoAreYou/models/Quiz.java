@@ -20,6 +20,8 @@ public class Quiz {
     private Long id;
 
     @Column
+    private int currentQuestionCounter;
+    @Column
     private Boolean isFinished;
     @Column
     private Boolean isRunning;
@@ -54,9 +56,18 @@ public class Quiz {
         this.isRunning = false;
         this.currentState = "";
         this.numberOfQuestions = numberOfQuestions;
+        this.currentQuestionCounter = 1;
     }
 
     public Quiz() {
+    }
+
+    public int getCurrentQuestionCounter() {
+        return currentQuestionCounter;
+    }
+
+    public void setCurrentQuestionCounter(int currentQuestionCounter) {
+        this.currentQuestionCounter = currentQuestionCounter;
     }
 
     public Long getId() {

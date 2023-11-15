@@ -19,7 +19,8 @@ public class Question {
     @Column
     private Long id;
 
-
+    @Column
+    private int currentQuestionCounter;
     @Column
     private String question;
     @Column
@@ -63,6 +64,7 @@ public class Question {
         this.optionC = optionC;
         this.optionD = optionD;
         this.quizzes = new ArrayList<Quiz>();
+
     }
 
     public Question() {
