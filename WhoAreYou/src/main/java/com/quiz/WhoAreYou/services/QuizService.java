@@ -11,7 +11,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -111,6 +113,7 @@ public class QuizService {
                 Long questionId = answerDTO.getQuestionId();
                 String userAnswer = answerDTO.getUserAnswer();
                 updateScores(quiz, questionId, userAnswer);
+                //quiz.setCurrentQuestionCounter();
                 quizRepository.save(quiz);
                 return quiz;
             }
@@ -149,9 +152,11 @@ public class QuizService {
             if (!quiz.getRunning()) {
                 quiz.setRunning(true);
 
-                String newCurrentState = "";
+                List<List<String>> newCurrentState = new ArrayList<>();
                 for (Question question : quiz.getQuestions()) {
-                    newCurrentState += "N" + question.getId();
+                    List<String> questionState = new ArrayList<>();
+                    questionState.add("N");
+                    questionState.add(question.getId().toString());
                 }
                 quiz.setCurrentState(newCurrentState);
                 quizRepository.save(quiz);

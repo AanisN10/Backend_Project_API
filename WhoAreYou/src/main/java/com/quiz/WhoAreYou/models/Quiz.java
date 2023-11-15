@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 @Table(name = "quizzes")
@@ -35,7 +32,7 @@ public class Quiz {
     @Column
     private int thibyaaScore;
     @Column
-    private String currentState;
+    private List<List<String>> currentState;
     @Column
     private int numberOfQuestions;
 
@@ -54,9 +51,9 @@ public class Quiz {
         this.thibyaaScore = thibyaaScore;
         this.questions = new ArrayList<>();
         this.isRunning = false;
-        this.currentState = "";
+        this.currentState = new ArrayList<>();
         this.numberOfQuestions = numberOfQuestions;
-        this.currentQuestionCounter = 1;
+        this.currentQuestionCounter = 0;
     }
 
     public Quiz() {
@@ -141,11 +138,12 @@ public class Quiz {
     public void addQuestion(Question question) { this.questions.add(question);
     }
 
-    public String getCurrentState() {
+
+    public List<List<String>> getCurrentState() {
         return currentState;
     }
 
-    public void setCurrentState(String currentState) {
+    public void setCurrentState(List<List<String>> currentState) {
         this.currentState = currentState;
     }
 
