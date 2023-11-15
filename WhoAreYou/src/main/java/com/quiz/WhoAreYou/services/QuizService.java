@@ -157,6 +157,7 @@ public class QuizService {
                     List<String> questionState = new ArrayList<>();
                     questionState.add("N");
                     questionState.add(question.getId().toString());
+                    newCurrentState.add(questionState); // Add questionState to newCurrentState
                 }
                 quiz.setCurrentState(newCurrentState);
                 quizRepository.save(quiz);

@@ -31,6 +31,8 @@ public class Quiz {
     private int annaScore;
     @Column
     private int thibyaaScore;
+    @ElementCollection
+    @CollectionTable
     @Column
     private List<List<String>> currentState;
     @Column
@@ -137,7 +139,6 @@ public class Quiz {
 
     public void addQuestion(Question question) { this.questions.add(question);
     }
-
 
     public List<List<String>> getCurrentState() {
         return currentState;
