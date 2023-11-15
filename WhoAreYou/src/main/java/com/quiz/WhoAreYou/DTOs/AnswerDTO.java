@@ -2,10 +2,10 @@ package com.quiz.WhoAreYou.DTOs;
 
 public class AnswerDTO {
 
-    private String questionId;
+    private Long questionId;
     private String userAnswer;
 
-    public AnswerDTO(String questionId, String userAnswer) {
+    public AnswerDTO(Long questionId, String userAnswer) {
         this.questionId = questionId;
         this.userAnswer = userAnswer;
     }
@@ -13,11 +13,11 @@ public class AnswerDTO {
     public AnswerDTO() {
     }
 
-    public String getQuestionId() {
+    public Long getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(String questionId) {
+    public void setQuestionId(Long questionId) {
         this.questionId = questionId;
     }
 

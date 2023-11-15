@@ -101,11 +101,12 @@ public class QuizService {
         }
     }
 
-        public Quiz submitAnswer (Long id, AnswerDTO answerDTO){
+    @Transactional
+    public Quiz submitAnswer (Long id, AnswerDTO answerDTO){
             Optional<Quiz> optionalQuiz = quizRepository.findById(id);
             if (optionalQuiz.isPresent()) {
                 Quiz quiz = optionalQuiz.get();
-                String questionId = answerDTO.getQuestionId();
+                Long questionId = answerDTO.getQuestionId();
                 String userAnswer = answerDTO.getUserAnswer();
                 updateScores(quiz, questionId, userAnswer);
                 quizRepository.save(quiz);
@@ -115,19 +116,29 @@ public class QuizService {
             }
         }
 
-        private void updateScores (Quiz quiz, String questionId, String userAnswer){
-            // logic to update scores based on user's answer
-            // retireve the corresponding Question entity based on questionId
-            // compare userAnswer with the correct answer for scoring
-            // "correct" ansewr gives 1 point
+        public void updateScores (Quiz quiz, Long questionId, String userAnswer) {
 
             int pointIncrement = 1;
+            Question question = questionRepository.findById(questionId).get();
+            if (userAnswer.equals(question.getZsoltAnswer())){
+                quiz.setZsoltScore(quiz.getZsoltScore() + pointIncrement);
 
-            quiz.setZsoltScore(quiz.getZsoltScore() + pointIncrement);
-            quiz.setColinScore(quiz.getColinScore() + pointIncrement);
-            quiz.setAnnaScore(quiz.getAnnaScore() + pointIncrement);
-            quiz.setThibyaaScore(quiz.getThibyaaScore() + pointIncrement);
+
+            }
+            if (userAnswer.equals(question.getColinAnswer())) {
+                quiz.setColinScore(quiz.getColinScore()+ pointIncrement);
+            }
+            if (userAnswer.equals(question.getAnnaAnswer())) {
+                quiz.setAnnaScore(quiz.getAnnaScore()+ pointIncrement);
+            }
+
+            if (userAnswer.equals(question.getThibyaaAnswer())) {
+                quiz.setThibyaaScore(quiz.getThibyaaScore() + pointIncrement);
+            }
+            quizRepository.save(quiz);
         }
+
+
 
     public Quiz startQuiz(Long id) {
         Optional<Quiz> optionalQuiz  = quizRepository.findById(id);
