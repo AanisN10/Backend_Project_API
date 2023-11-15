@@ -103,4 +103,18 @@ public class QuizService {
             return null;
         }
     }
+
+    private void updateScores(Quiz quiz, String questionId, String userAnswer) {
+        // logic to update scores based on user's answer
+        // retireve the corresponding Question entity based on questionId
+        // compare userAnswer with the correct answer for scoring
+        // "correct" ansewr gives 1 point
+
+        int pointIncrement = 1;
+
+        quiz.setZsoltScore(quiz.getZsoltScore() + pointIncrement);
+        quiz.setColinScore(quiz.getColinScore() + pointIncrement);
+        quiz.setAnnaScore(quiz.getAnnaScore() + pointIncrement);
+        quiz.setThibyaaScore(quiz.getThibyaaScore() + pointIncrement);
+    }
 }
