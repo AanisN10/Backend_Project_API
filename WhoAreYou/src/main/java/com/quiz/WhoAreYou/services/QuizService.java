@@ -102,19 +102,21 @@ public class QuizService {
     }
 
     @Transactional
-    public Quiz submitAnswer (Long id, AnswerDTO answerDTO){
-            Optional<Quiz> optionalQuiz = quizRepository.findById(id);
-            if (optionalQuiz.isPresent()) {
-                Quiz quiz = optionalQuiz.get();
+    public Quiz submitAnswer (Long id, AnswerDTO answerDTO) {
+        Optional<Quiz> optionalQuiz = quizRepository.findById(id);
+        if (optionalQuiz.isPresent()) {
+            Quiz quiz = optionalQuiz.get();
+
+            if (!quiz.getFinished() && quiz.getRunning()) {
                 Long questionId = answerDTO.getQuestionId();
                 String userAnswer = answerDTO.getUserAnswer();
                 updateScores(quiz, questionId, userAnswer);
                 quizRepository.save(quiz);
                 return quiz;
-            } else {
-                return null;
             }
         }
+        return null;
+    }
 
         public void updateScores (Quiz quiz, Long questionId, String userAnswer) {
 
