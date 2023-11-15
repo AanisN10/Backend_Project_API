@@ -11,10 +11,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class QuizService {
@@ -164,5 +161,24 @@ public class QuizService {
             }
         }
       return null;
+    }
+
+    public Quiz createRandomQuiz(int numberOfQuestions) throws Exception {
+        List<Question> allQuestions = questionRepository.findAll();
+
+        if (allQuestions.size() < numberOfQuestions){
+            throw new Exception("Not enough questions available");
+        }
+
+        Collections.shuffle(allQuestions);
+        List<Question> selectedQuestions = allQuestions.subList(0, numberOfQuestions);
+        Quiz quiz = new Quiz(false, 0, 0, 0, 0, numberOfQuestions);
+        for (Question question : selectedQuestions){
+            quiz.addQuestion(question);
+        }
+        quizRepository.save(quiz);
+
+        return quiz;
+
     }
 }

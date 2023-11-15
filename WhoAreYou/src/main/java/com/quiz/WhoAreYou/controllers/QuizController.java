@@ -69,4 +69,10 @@ public class QuizController {
     public ResponseEntity<Quiz> startQuiz(@PathVariable Long id){
         return new ResponseEntity<>(quizService.startQuiz(id), HttpStatus.OK);
     }
+
+    @PostMapping("/random")
+    public ResponseEntity<Quiz> createRandomQuiz(@RequestParam int numberOfQuestions) throws Exception {
+        Quiz quiz = quizService.createRandomQuiz(numberOfQuestions);
+        return new ResponseEntity<>(quiz, HttpStatus.CREATED);
+    }
 }
