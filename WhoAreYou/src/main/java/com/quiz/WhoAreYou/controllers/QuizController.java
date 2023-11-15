@@ -1,6 +1,7 @@
 package com.quiz.WhoAreYou.controllers;
 
 import com.quiz.WhoAreYou.DTOs.AddRemoveQuestionDTO;
+import com.quiz.WhoAreYou.DTOs.AnswerDTO;
 import com.quiz.WhoAreYou.models.Quiz;
 import com.quiz.WhoAreYou.DTOs.QuizDTO;
 import com.quiz.WhoAreYou.services.QuizService;
@@ -58,4 +59,9 @@ public class QuizController {
         return new ResponseEntity<>(quizService.removeQuestionFromQuiz(id,removeQuestionDTO),HttpStatus.OK);
     }
 
+    @PostMapping(value = "/answer/{id}")
+    public ResponseEntity<Quiz> submitAnswer(@PathVariable Long id,
+                                             @RequestBody AnswerDTO answerDTO) {
+        return new ResponseEntity<>(quizService.submitAnswer(id, answerDTO), HttpStatus.OK);
+    }
 }
