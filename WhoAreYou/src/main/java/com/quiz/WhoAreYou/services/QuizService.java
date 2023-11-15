@@ -196,4 +196,34 @@ public class QuizService {
 
 
     }
+
+
+
+    public Quiz finishQuiz(Long quizId){
+            int pointIncrement = 1;
+           Optional<Quiz> optionalQuiz= quizRepository.findById(quizId);
+
+           if(optionalQuiz.isPresent()) {
+               Quiz quiz = optionalQuiz.get();
+               for(List<String>questionState:quiz.getCurrentState()) {
+                   Question question = questionRepository.findById(Long.valueOf(questionState.get(1))).get();
+                   String userAnswer= questionState.get(0);
+                   if (userAnswer.equals(question.getZsoltAnswer())) {
+                       quiz.setZsoltScore(quiz.getZsoltScore() + pointIncrement);
+                   }
+                   if (userAnswer.equals(question.getColinAnswer())) {
+                       quiz.setColinScore(quiz.getColinScore() + pointIncrement);
+                   }
+                   if (userAnswer.equals(question.getAnnaAnswer())) {
+                       quiz.setAnnaScore(quiz.getAnnaScore() + pointIncrement);
+                   }
+
+                   if (userAnswer.equals(question.getThibyaaAnswer())) {
+                       quiz.setThibyaaScore(quiz.getThibyaaScore() + pointIncrement);
+                   }
+               }
+               quizRepository.save(quiz);
+           }
+           return null;
+        }
 }

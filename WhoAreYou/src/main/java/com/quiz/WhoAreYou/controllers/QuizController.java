@@ -104,4 +104,11 @@ public class QuizController {
             @RequestBody AnswerDTO answerDTO){
         return new ResponseEntity<>(quizService.answerQuestionFromQuiz(quizId,answerDTO), HttpStatus.OK);
     }
+
+
+    @PostMapping("/finishQuiz/{quizId}")
+    public ResponseEntity<Quiz> finishQuiz(
+            @PathVariable Long quizId){
+        return new ResponseEntity<>(quizService.finishQuiz(quizId), HttpStatus.OK);
+    }
 }
