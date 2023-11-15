@@ -60,9 +60,13 @@ public class QuizController {
     }
 
     @PostMapping(value = "/answer/{id}")
-    public ResponseEntity<Quiz> submitAnswer(@PathVariable Long id,
-                                             @RequestBody AnswerDTO answerDTO) {
-        return new ResponseEntity<>(quizService.submitAnswer(id, answerDTO), HttpStatus.OK);
+    public ResponseEntity<Quiz> submitAnswer(@PathVariable Long id, @RequestBody AnswerDTO answerDTO) {
+        try {
+            Quiz submitAnswer = quizService.submitAnswer(id, answerDTO);
+            return new ResponseEntity<>(submitAnswer, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(quizService.submitAnswer(id, answerDTO), HttpStatus.OK);
+        }
     }
 
     @PostMapping(value = "/startQuiz/{id}")
