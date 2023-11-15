@@ -72,7 +72,11 @@ public class QuizController {
 
     @PostMapping("/random")
     public ResponseEntity<Quiz> createRandomQuiz(@RequestParam int numberOfQuestions) throws Exception {
-        Quiz quiz = quizService.createRandomQuiz(numberOfQuestions);
-        return new ResponseEntity<>(quiz, HttpStatus.CREATED);
+        try {
+            Quiz quiz = quizService.createRandomQuiz(numberOfQuestions);
+            return new ResponseEntity<>(quiz, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
