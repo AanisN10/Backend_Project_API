@@ -190,6 +190,7 @@ public class QuizService {
             List<String> currentQuestion = quiz.getCurrentState().get(questionNumber);
             currentQuestion.set(0, answerDTO.getUserAnswer());
             quiz.setCurrentStatebyQuestionNumber(questionNumber, currentQuestion);
+            quizRepository.save(quiz);
         }
        return null;
 
