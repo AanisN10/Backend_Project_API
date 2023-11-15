@@ -128,4 +128,13 @@ public class QuizService {
             quiz.setThibyaaScore(quiz.getThibyaaScore() + pointIncrement);
         }
 
+    public Quiz startQuiz(Long id) {
+        Optional<Quiz> optionalQuiz  = quizRepository.findById(id);
+        if(optionalQuiz.isPresent()){
+            Quiz quiz = optionalQuiz.get();
+            quiz.setRunning(true);
+            quizRepository.save(quiz);
+        }
+      return null;
+    }
 }

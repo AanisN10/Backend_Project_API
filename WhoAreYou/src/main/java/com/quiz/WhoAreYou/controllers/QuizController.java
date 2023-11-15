@@ -64,4 +64,9 @@ public class QuizController {
                                              @RequestBody AnswerDTO answerDTO) {
         return new ResponseEntity<>(quizService.submitAnswer(id, answerDTO), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/startQuiz/{id}")
+    public ResponseEntity<Quiz> startQuiz(@PathVariable Long id){
+        return new ResponseEntity<>(quizService.startQuiz(id), HttpStatus.OK);
+    }
 }
