@@ -67,7 +67,12 @@ public class QuizController {
 
     @PostMapping(value = "/startQuiz/{id}")
     public ResponseEntity<Quiz> startQuiz(@PathVariable Long id){
-        return new ResponseEntity<>(quizService.startQuiz(id), HttpStatus.OK);
+        try {
+            Quiz startQuiz = quizService.startQuiz(id);
+            return new ResponseEntity<>(startQuiz, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/random")
