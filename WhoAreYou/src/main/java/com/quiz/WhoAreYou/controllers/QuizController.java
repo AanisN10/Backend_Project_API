@@ -97,4 +97,11 @@ public class QuizController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/takeQuiz/{quizId}/{questionNumber}")
+    public ResponseEntity<Quiz> answerQuestionFromQuiz(
+            @PathVariable Long quizId,
+            @PathVariable Long questionNumber){
+        return new ResponseEntity<>(quizService.answerQuestionFromQuiz(quizId,questionNumber), HttpStatus.OK);
+    }
 }
