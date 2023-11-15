@@ -1,6 +1,7 @@
 package com.quiz.WhoAreYou.services;
 
 import com.quiz.WhoAreYou.DTOs.AddRemoveQuestionDTO;
+import com.quiz.WhoAreYou.DTOs.AnswerDTO;
 import com.quiz.WhoAreYou.models.Quiz;
 import com.quiz.WhoAreYou.DTOs.QuizDTO;
 import com.quiz.WhoAreYou.repositories.QuestionRepository;
@@ -86,6 +87,20 @@ public class QuizService {
             quizRepository.save(quiz);
             return quiz;
 
+        }
+    }
+
+    public Quiz submitAnswer(Long id, AnswerDTO answerDTO) {
+        Optional<Quiz> optionalQuiz = quizRepository.findById(id);
+        if (optionalQuiz.isPresent()) {
+            Quiz quiz = optionalQuiz.get();
+            String questionId = answerDTO.getQuestionId();
+            String userAnswer = answerDTO.getUserAnswer();
+            updateScores(quiz, questionId, userAnswer);
+            quizRepository.save(quiz);
+            return quiz;
+        } else {
+            return null;
         }
     }
 }
