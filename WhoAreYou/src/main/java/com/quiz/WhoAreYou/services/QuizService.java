@@ -117,7 +117,7 @@ public class QuizService {
 //        }
 //        return null;
 //    }
-
+//
 //        public void updateScores (Quiz quiz, Long questionId, String userAnswer) {
 //
 //            int pointIncrement = 1;
@@ -139,9 +139,9 @@ public class QuizService {
 //            }
 //            quizRepository.save(quiz);
 //        }
-
-
-
+//
+//
+//
     public Quiz startQuiz(Long id) {
         Optional<Quiz> optionalQuiz  = quizRepository.findById(id);
         if(optionalQuiz.isPresent()){
@@ -182,5 +182,17 @@ public class QuizService {
     }
 
 
+    public Quiz answerQuestionFromQuiz(Long quizId, AnswerDTO answerDTO) {
+        Optional<Quiz> optionalQuiz = quizRepository.findById(quizId);
+        if(optionalQuiz.isPresent()){
+            Quiz quiz = optionalQuiz.get();
+            int questionNumber = Math.toIntExact(answerDTO.getQuestionNumber());
+            List<String> currentQuestion = quiz.getCurrentState().get(questionNumber);
+            currentQuestion.set(0, answerDTO.getUserAnswer());
+            quiz.setCurrentStatebyQuestionNumber(questionNumber, currentQuestion);
+        }
+       return null;
 
+
+    }
 }

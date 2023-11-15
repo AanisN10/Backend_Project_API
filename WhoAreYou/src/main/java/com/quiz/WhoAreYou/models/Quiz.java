@@ -155,4 +155,8 @@ public class Quiz {
     public void setNumberOfQuestions(int numberOfQuestions) {
         this.numberOfQuestions = numberOfQuestions;
     }
+
+    public void setCurrentStatebyQuestionNumber(int questionNumber, List<String> questionState){
+        this.currentState.set(questionNumber,questionState);
+    }
 }
