@@ -32,6 +32,10 @@ public class Quiz {
     private int annaScore;
     @Column
     private int thibyaaScore;
+    @Column
+    private String currentState;
+    @Column
+    private int numberOfQuestions;
 
     @JsonIgnoreProperties({"quizzes"})
     @ManyToMany
@@ -40,7 +44,7 @@ public class Quiz {
             inverseJoinColumns = @JoinColumn(name = "question_id"))
     private List<Question> questions;
 
-    public Quiz(Boolean isFinished, int zsoltScore, int colinScore, int annaScore, int thibyaaScore){
+    public Quiz(Boolean isFinished, int zsoltScore, int colinScore, int annaScore, int thibyaaScore, int numberOfQuestions){
         this.isFinished = isFinished;
         this.zsoltScore = zsoltScore;
         this.colinScore = colinScore;
@@ -48,6 +52,8 @@ public class Quiz {
         this.thibyaaScore = thibyaaScore;
         this.questions = new ArrayList<>();
         this.isRunning = false;
+        this.currentState = "";
+        this.numberOfQuestions = numberOfQuestions;
     }
 
     public Quiz() {
@@ -122,5 +128,21 @@ public class Quiz {
     }
 
     public void addQuestion(Question question) { this.questions.add(question);
+    }
+
+    public String getCurrentState() {
+        return currentState;
+    }
+
+    public void setCurrentState(String currentState) {
+        this.currentState = currentState;
+    }
+
+    public int getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public void setNumberOfQuestions(int numberOfQuestions) {
+        this.numberOfQuestions = numberOfQuestions;
     }
 }

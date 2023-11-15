@@ -26,10 +26,12 @@ public class QuestionService {
 
         for (Long quizID : questionDTO.getQuizIds()){
             if (quizRepository.findById(quizID).isPresent()){
-                question.addQuiz(quizRepository.findById(quizID).get());
+                Quiz quiz = quizRepository.findById(quizID).get();
+                question.addQuiz(quiz);
+                quiz.addQuestion(question);
+                //quizRepository.save(quiz);
             }
         }
-
         questionRepository.save(question);
         return question;
     }

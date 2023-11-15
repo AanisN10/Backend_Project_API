@@ -2,6 +2,7 @@ package com.quiz.WhoAreYou.services;
 
 import com.quiz.WhoAreYou.DTOs.AddRemoveQuestionDTO;
 import com.quiz.WhoAreYou.DTOs.AnswerDTO;
+import com.quiz.WhoAreYou.models.Question;
 import com.quiz.WhoAreYou.models.Quiz;
 import com.quiz.WhoAreYou.DTOs.QuizDTO;
 import com.quiz.WhoAreYou.repositories.QuestionRepository;
@@ -31,7 +32,7 @@ public class QuizService {
     }
 
     public Quiz addNewQuiz(QuizDTO quizDTO) {
-        Quiz quiz = new Quiz(quizDTO.getFinished(), quizDTO.getZsoltScore(), quizDTO.getColinScore(), quizDTO.getAnnaScore(), quizDTO.getThibyaaScore());
+        Quiz quiz = new Quiz(quizDTO.getFinished(), quizDTO.getZsoltScore(), quizDTO.getColinScore(), quizDTO.getAnnaScore(), quizDTO.getThibyaaScore(), quizDTO.getNumberOfQuestions());
 
         for (Long questionId : quizDTO.getQuestionIds()) {
             if (questionRepository.findById(questionId).isPresent()) {
@@ -62,7 +63,7 @@ public class QuizService {
             Quiz quiz = quizRepository.findById(id).get();
             //List<Question> questions = addRemoveQuestionDTO;
 
-            if (quiz.getRunning() == false) {
+            if (!quiz.getRunning()) {
 
 
                 for (Long questionId : addRemoveQuestionDTO.getQuestionIds()) { //loops through Ids in DTO
@@ -85,7 +86,7 @@ public class QuizService {
         } else {
             Quiz quiz = quizRepository.findById(id).get();
 
-            if (quiz.getRunning() == false) {
+            if (!quiz.getRunning()) {
 
 
                 for (Long questionId : removeQuestionDTO.getQuestionIds()) {
@@ -133,6 +134,12 @@ public class QuizService {
         if(optionalQuiz.isPresent()){
             Quiz quiz = optionalQuiz.get();
             quiz.setRunning(true);
+
+            String newCurrentState = "";
+            for (Question question : quiz.getQuestions()){
+                newCurrentState += "N"+question.getId();
+            }
+            quiz.setCurrentState(newCurrentState);
             quizRepository.save(quiz);
         }
       return null;

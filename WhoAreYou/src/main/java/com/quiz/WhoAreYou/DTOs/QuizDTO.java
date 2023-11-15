@@ -11,15 +11,17 @@ public class QuizDTO {
     private int colinScore;
     private int annaScore;
     private int thibyaaScore;
+    private int numberOfQuestions;
     private List<Long> questionIds;
 
     public QuizDTO(Boolean isFinished, int zsoltScore, int colinScore,
-                   int annaScore, int thibyaaScore, List<Long> questionIds) {
+                   int annaScore, int thibyaaScore, int numberOfQuestions, List<Long> questionIds) {
         this.isFinished = isFinished;
         this.zsoltScore = zsoltScore;
         this.colinScore = colinScore;
         this.annaScore = annaScore;
         this.thibyaaScore = thibyaaScore;
+        this.numberOfQuestions = numberOfQuestions;
         this.questionIds = questionIds;
     }
 
@@ -72,5 +74,13 @@ public class QuizDTO {
 
     public void setQuestionIds(List<Long> questionIds) {
         this.questionIds = questionIds;
+    }
+
+    public int getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public void setNumberOfQuestions(int numberOfQuestions) {
+        this.numberOfQuestions = numberOfQuestions;
     }
 }
