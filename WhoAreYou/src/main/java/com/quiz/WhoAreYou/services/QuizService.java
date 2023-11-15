@@ -133,14 +133,16 @@ public class QuizService {
         Optional<Quiz> optionalQuiz  = quizRepository.findById(id);
         if(optionalQuiz.isPresent()){
             Quiz quiz = optionalQuiz.get();
-            quiz.setRunning(true);
+            if (!quiz.getRunning()) {
+                quiz.setRunning(true);
 
-            String newCurrentState = "";
-            for (Question question : quiz.getQuestions()){
-                newCurrentState += "N"+question.getId();
+                String newCurrentState = "";
+                for (Question question : quiz.getQuestions()) {
+                    newCurrentState += "N" + question.getId();
+                }
+                quiz.setCurrentState(newCurrentState);
+                quizRepository.save(quiz);
             }
-            quiz.setCurrentState(newCurrentState);
-            quizRepository.save(quiz);
         }
       return null;
     }

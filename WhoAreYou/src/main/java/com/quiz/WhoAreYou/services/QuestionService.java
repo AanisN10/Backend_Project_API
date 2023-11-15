@@ -25,11 +25,14 @@ public class QuestionService {
         Question question = new Question(questionDTO.getQuestion(),questionDTO.getOptionA(),questionDTO.getOptionB(),questionDTO.getOptionC(),questionDTO.getOptionD(),questionDTO.getZsoltAnswer(),questionDTO.getAnnaAnswer(),questionDTO.getColinAnswer(),questionDTO.getThibyaaAnswer());
 
         for (Long quizID : questionDTO.getQuizIds()){
-            if (quizRepository.findById(quizID).isPresent()){
-                Quiz quiz = quizRepository.findById(quizID).get();
-                question.addQuiz(quiz);
-                quiz.addQuestion(question);
-                //quizRepository.save(quiz);
+            Optional<Quiz> optionalQuiz = quizRepository.findById(quizID);
+            if (optionalQuiz.isPresent()){
+                Quiz quiz = optionalQuiz.get();
+                if (!quiz.getRunning()) {
+                    question.addQuiz(quiz);
+                    quiz.addQuestion(question);
+                    //quizRepository.save(quiz);
+                }
             }
         }
         questionRepository.save(question);
