@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jdk.incubator.foreign.SymbolLookup;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,8 @@ public class Quiz {
 
     @Column
     private Boolean isFinished;
+    @Column
+    private Boolean isRunning;
 
     @Column
     private int zsoltScore;
@@ -45,6 +48,7 @@ public class Quiz {
         this.annaScore = annaScore;
         this.thibyaaScore = thibyaaScore;
         this.questions = new ArrayList<>();
+        this.isRunning = false;
     }
 
     public Quiz() {
@@ -104,6 +108,14 @@ public class Quiz {
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
+    }
+
+    public Boolean getRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(Boolean running) {
+        isRunning = running;
     }
 
     public void removeQuestion(Question question) {

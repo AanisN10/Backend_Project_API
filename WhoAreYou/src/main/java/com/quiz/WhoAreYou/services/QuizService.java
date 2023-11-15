@@ -33,8 +33,8 @@ public class QuizService {
     public Quiz addNewQuiz(QuizDTO quizDTO) {
         Quiz quiz = new Quiz(quizDTO.getFinished(), quizDTO.getZsoltScore(), quizDTO.getColinScore(), quizDTO.getAnnaScore(), quizDTO.getThibyaaScore());
 
-        for (Long questionId : quizDTO.getQuestionIds()){
-            if (questionRepository.findById(questionId).isPresent()){
+        for (Long questionId : quizDTO.getQuestionIds()) {
+            if (questionRepository.findById(questionId).isPresent()) {
                 quiz.addQuestion(questionRepository.findById(questionId).get());
             }
         }
@@ -44,77 +44,88 @@ public class QuizService {
     }
 
     public Long removeQuizById(Long id) {
-       if(quizRepository.findById(id).isPresent()){
-           quizRepository.deleteById(id);
-           return id;
-       } else{
-           return null;
-       }
+        if (quizRepository.findById(id).isPresent()) {
+            quizRepository.deleteById(id);
+            return id;
+        } else {
+            return null;
+        }
 
     }
 
     @Transactional
     public Quiz addQuestionsToQuiz(Long id, AddRemoveQuestionDTO addRemoveQuestionDTO) {
-        if (quizRepository.findById(id).isEmpty()){
+
+        if (quizRepository.findById(id).isEmpty()) {
             return null;
-        }else{
+        } else {
             Quiz quiz = quizRepository.findById(id).get();
             //List<Question> questions = addRemoveQuestionDTO;
 
-            for(Long questionId : addRemoveQuestionDTO.getQuestionIds()){ //loops through Ids in DTO
-                if (questionRepository.findById(questionId).isPresent()){
-                    quiz.addQuestion(questionRepository.findById(questionId).get()); //adds question to quiz
-                    questionRepository.findById(questionId).get().addQuiz(quiz); //adds quiz to question
-                }
-            }
-            quizRepository.save(quiz);
-            return quiz;
+            if (quiz.getRunning() == false) {
 
+
+                for (Long questionId : addRemoveQuestionDTO.getQuestionIds()) { //loops through Ids in DTO
+                    if (questionRepository.findById(questionId).isPresent()) {
+                        quiz.addQuestion(questionRepository.findById(questionId).get()); //adds question to quiz
+                        questionRepository.findById(questionId).get().addQuiz(quiz); //adds quiz to question
+                    }
+                }
+                quizRepository.save(quiz);
+            }
+            return quiz;
         }
+
     }
+
 
     public Quiz removeQuestionFromQuiz(Long id, AddRemoveQuestionDTO removeQuestionDTO) {
-        if(quizRepository.findById(id).isEmpty()){
+        if (quizRepository.findById(id).isEmpty()) {
             return null;
-        }else {
+        } else {
             Quiz quiz = quizRepository.findById(id).get();
 
-            for (Long questionId : removeQuestionDTO.getQuestionIds()){
-                if(questionRepository.findById(questionId).isPresent() && (quiz.getQuestions().contains(questionRepository.findById(questionId).get()))){
-                    quiz.removeQuestion(questionRepository.getById(questionId));
+            if (quiz.getRunning() == false) {
+
+
+                for (Long questionId : removeQuestionDTO.getQuestionIds()) {
+                    if (questionRepository.findById(questionId).isPresent() && (quiz.getQuestions().contains(questionRepository.findById(questionId).get()))) {
+                        quiz.removeQuestion(questionRepository.getById(questionId));
+                    }
                 }
+                quizRepository.save(quiz);
+
             }
-            quizRepository.save(quiz);
             return quiz;
-
         }
     }
 
-    public Quiz submitAnswer(Long id, AnswerDTO answerDTO) {
-        Optional<Quiz> optionalQuiz = quizRepository.findById(id);
-        if (optionalQuiz.isPresent()) {
-            Quiz quiz = optionalQuiz.get();
-            String questionId = answerDTO.getQuestionId();
-            String userAnswer = answerDTO.getUserAnswer();
-            updateScores(quiz, questionId, userAnswer);
-            quizRepository.save(quiz);
-            return quiz;
-        } else {
-            return null;
+        public Quiz submitAnswer (Long id, AnswerDTO answerDTO){
+            Optional<Quiz> optionalQuiz = quizRepository.findById(id);
+            if (optionalQuiz.isPresent()) {
+                Quiz quiz = optionalQuiz.get();
+                String questionId = answerDTO.getQuestionId();
+                String userAnswer = answerDTO.getUserAnswer();
+                updateScores(quiz, questionId, userAnswer);
+                quizRepository.save(quiz);
+                return quiz;
+            } else {
+                return null;
+            }
         }
-    }
 
-    private void updateScores(Quiz quiz, String questionId, String userAnswer) {
-        // logic to update scores based on user's answer
-        // retireve the corresponding Question entity based on questionId
-        // compare userAnswer with the correct answer for scoring
-        // "correct" ansewr gives 1 point
+        private void updateScores (Quiz quiz, String questionId, String userAnswer){
+            // logic to update scores based on user's answer
+            // retireve the corresponding Question entity based on questionId
+            // compare userAnswer with the correct answer for scoring
+            // "correct" ansewr gives 1 point
 
-        int pointIncrement = 1;
+            int pointIncrement = 1;
 
-        quiz.setZsoltScore(quiz.getZsoltScore() + pointIncrement);
-        quiz.setColinScore(quiz.getColinScore() + pointIncrement);
-        quiz.setAnnaScore(quiz.getAnnaScore() + pointIncrement);
-        quiz.setThibyaaScore(quiz.getThibyaaScore() + pointIncrement);
-    }
+            quiz.setZsoltScore(quiz.getZsoltScore() + pointIncrement);
+            quiz.setColinScore(quiz.getColinScore() + pointIncrement);
+            quiz.setAnnaScore(quiz.getAnnaScore() + pointIncrement);
+            quiz.setThibyaaScore(quiz.getThibyaaScore() + pointIncrement);
+        }
+
 }
