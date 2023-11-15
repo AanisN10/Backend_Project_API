@@ -56,7 +56,11 @@ public class QuizController {
 
     @DeleteMapping(value = "/removeQuestion/{id}")
     public ResponseEntity<Quiz> removeQuestionsFromQuiz(@PathVariable Long id, @RequestBody AddRemoveQuestionDTO removeQuestionDTO){
-        return new ResponseEntity<>(quizService.removeQuestionFromQuiz(id,removeQuestionDTO),HttpStatus.OK);
+        try{
+            return new ResponseEntity<>(quizService.removeQuestionFromQuiz(id,removeQuestionDTO),HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = "/answer/{id}")
