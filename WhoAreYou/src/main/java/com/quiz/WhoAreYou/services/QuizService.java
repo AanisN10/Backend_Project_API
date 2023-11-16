@@ -221,4 +221,32 @@ public class QuizService {
             return quiz.getQuestions().get(questionNumber);
         }return null;
     }
+
+    public ScoreDTO getTotalResultByTrainer(String trainerName) {
+        List<Quiz> finishedQuizzes = quizRepository.findByIsFinishedIsTrue();
+        int totalScore = 0;
+        for (Quiz quiz : finishedQuizzes){
+
+            switch (trainerName){
+                case "Colin":
+                    totalScore += quiz.getColinScore();
+                    break;
+
+                case "Anna":
+                    totalScore += quiz.getAnnaScore();
+                    break;
+
+                case "Zsolt":
+                    totalScore += quiz.getZsoltScore();
+                    break;
+                case "Thibyaa":
+                    totalScore += quiz.getThibyaaScore();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        return new ScoreDTO(totalScore);
+    }
 }

@@ -125,6 +125,11 @@ public class QuizController {
         return new ResponseEntity<>(quizService.findQuestionByNumber(quizId,questionNumber) ,HttpStatus.OK );
 
      }
-}
+
+     @GetMapping(value = "/allResults")
+    public ResponseEntity<ScoreDTO> getTotalResultByTrainer(@RequestParam String trainerName){
+        return new ResponseEntity<>(quizService.getTotalResultByTrainer(trainerName),HttpStatus.OK);
+     }}
+
 
 
