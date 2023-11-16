@@ -113,6 +113,7 @@ public class QuizService {
                     newCurrentState.add(questionState); // Add questionState to newCurrentState
                 }
                 quiz.setCurrentState(newCurrentState);
+                quiz.setNumberOfQuestions(quiz.getQuestions().size());
                 quizRepository.save(quiz);
             }
         }
@@ -253,7 +254,7 @@ public class QuizService {
                     break;
                 case "Thibyaa":
                     totalScore += quiz.getThibyaaScore();
-                    break;R
+                    break;
             }
         }
         return new ScoreDTO(totalScore);

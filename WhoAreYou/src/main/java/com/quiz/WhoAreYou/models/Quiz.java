@@ -16,8 +16,7 @@ public class Quiz {
     @Column
     private Long id;
 
-    @Column
-    private int currentQuestionCounter;
+
     @Column
     private Boolean isFinished;
     @Column
@@ -55,19 +54,13 @@ public class Quiz {
         this.isRunning = false;
         this.currentState = new ArrayList<>();
         this.numberOfQuestions = numberOfQuestions;
-        this.currentQuestionCounter = 0;
+
     }
 
     public Quiz() {
     }
 
-    public int getCurrentQuestionCounter() {
-        return currentQuestionCounter;
-    }
 
-    public void setCurrentQuestionCounter(int currentQuestionCounter) {
-        this.currentQuestionCounter = currentQuestionCounter;
-    }
 
     public Long getId() {
         return id;

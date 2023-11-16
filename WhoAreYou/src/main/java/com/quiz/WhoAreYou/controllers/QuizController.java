@@ -95,7 +95,7 @@ public class QuizController {
         }
     }
 
-    @PostMapping(value = "/random")
+    @GetMapping(value = "/random")
     public ResponseEntity<Quiz> createRandomQuiz(@RequestParam int numberOfQuestions) throws Exception {
         try {
             Quiz quiz = quizService.createRandomQuiz(numberOfQuestions);
@@ -117,7 +117,7 @@ public class QuizController {
     }
 
 
-    @PostMapping(value = "/finishQuiz/{quizId}")
+    @GetMapping(value = "/finishQuiz/{quizId}")
     public ResponseEntity<Quiz> finishQuiz(
             @PathVariable Long quizId){
         try{

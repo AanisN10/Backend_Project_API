@@ -53,6 +53,7 @@ public class QuestionService {
                 }
                 if (!toRemoveState.isEmpty()) {
                     quiz.removeQuestionState(toRemoveState);
+                    quiz.setNumberOfQuestions(quiz.getNumberOfQuestions()-1);
                 }
             }
             questionRepository.deleteById(id);
