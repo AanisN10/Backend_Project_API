@@ -2,6 +2,7 @@ package com.quiz.WhoAreYou.services;
 
 import com.quiz.WhoAreYou.DTOs.AddRemoveQuestionDTO;
 import com.quiz.WhoAreYou.DTOs.AnswerDTO;
+import com.quiz.WhoAreYou.DTOs.QuizResultDTO;
 import com.quiz.WhoAreYou.models.Question;
 import com.quiz.WhoAreYou.models.Quiz;
 import com.quiz.WhoAreYou.DTOs.QuizDTO;
@@ -185,5 +186,10 @@ public class QuizService {
            }
        }
        return null;
+    }
+
+    public QuizResultDTO mapQuizToQuizResult(Quiz quiz) {
+        QuizResultDTO quizResultDTO = new QuizResultDTO(quiz.getId(), quiz.getZsoltScore(), quiz.getColinScore(), quiz.getAnnaScore(), quiz.getThibyaaScore());
+        quizResultDTO.setZsoltScore(quiz.getZsoltScore());
     }
 }

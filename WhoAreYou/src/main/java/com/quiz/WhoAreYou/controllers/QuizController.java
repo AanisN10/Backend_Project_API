@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,7 +79,7 @@ public class QuizController {
         }
     }
 
-    @PostMapping("/random")
+    @PostMapping(value = "/random")
     public ResponseEntity<Quiz> createRandomQuiz(@RequestParam int numberOfQuestions) throws Exception {
         try {
             Quiz quiz = quizService.createRandomQuiz(numberOfQuestions);
@@ -88,7 +89,7 @@ public class QuizController {
         }
     }
 
-    @PostMapping("/takeQuiz/{quizId}")
+    @PostMapping(value = "/takeQuiz/{quizId}")
     public ResponseEntity<Quiz> answerQuestionFromQuiz(
             @PathVariable Long quizId,
             @RequestBody AnswerDTO answerDTO){
@@ -96,9 +97,21 @@ public class QuizController {
     }
 
 
-    @PostMapping("/finishQuiz/{quizId}")
+    @PostMapping(value = "/finishQuiz/{quizId}")
     public ResponseEntity<Quiz> finishQuiz(
             @PathVariable Long quizId){
         return new ResponseEntity<>(quizService.finishQuiz(quizId), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/result/{quizId}")
+    public ResponseEntity<QuizResultDTO> getQuizResultById(@PathVariable Long quizId) {
+        Optional<Quiz> optionalQuiz = quizService.findQuizById(quizId);
+        if (optionalQuiz.isPresent()) {
+            Quiz quiz = optionalQuiz.get();
+            QuizResultDTO quizResultDTO = quizService.mapQuizToQuizResult(quiz);
+            return new ResponseEntity<QuizResultDTO>(quizResultDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<QuizResultDTO>(HttpStatus.NOT_FOUND);
+        }
     }
 }
