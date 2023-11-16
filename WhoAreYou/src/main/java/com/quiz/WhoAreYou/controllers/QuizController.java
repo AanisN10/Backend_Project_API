@@ -1,9 +1,7 @@
 package com.quiz.WhoAreYou.controllers;
 
-import com.quiz.WhoAreYou.DTOs.AddRemoveQuestionDTO;
-import com.quiz.WhoAreYou.DTOs.AnswerDTO;
+import com.quiz.WhoAreYou.DTOs.*;
 import com.quiz.WhoAreYou.models.Quiz;
-import com.quiz.WhoAreYou.DTOs.QuizDTO;
 import com.quiz.WhoAreYou.services.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -103,15 +101,10 @@ public class QuizController {
         return new ResponseEntity<>(quizService.finishQuiz(quizId), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/result/{quizId}")
-    public ResponseEntity<QuizResultDTO> getQuizResultById(@PathVariable Long quizId) {
-        Optional<Quiz> optionalQuiz = quizService.findQuizById(quizId);
-        if (optionalQuiz.isPresent()) {
-            Quiz quiz = optionalQuiz.get();
-            QuizResultDTO quizResultDTO = quizService.mapQuizToQuizResult(quiz);
-            return new ResponseEntity<QuizResultDTO>(quizResultDTO, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<QuizResultDTO>(HttpStatus.NOT_FOUND);
+    @GetMapping(value = "/{quizId}/result")
+    public ResponseEntity<MessageDTO> getTrainerResultById(@PathVariable Long quizId,
+                                                           @RequestParam String trainerName){
+        QuizResultDTO quizResultDTO = new QuizResultDTO(trainerName,quizId);
+        return new ResponseEntity<>(quizService.mapQuizToQuizResult(quizResultDTO),HttpStatus.OK);
         }
-    }
 }

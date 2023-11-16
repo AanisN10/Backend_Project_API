@@ -1,11 +1,8 @@
 package com.quiz.WhoAreYou.services;
 
-import com.quiz.WhoAreYou.DTOs.AddRemoveQuestionDTO;
-import com.quiz.WhoAreYou.DTOs.AnswerDTO;
-import com.quiz.WhoAreYou.DTOs.QuizResultDTO;
+import com.quiz.WhoAreYou.DTOs.*;
 import com.quiz.WhoAreYou.models.Question;
 import com.quiz.WhoAreYou.models.Quiz;
-import com.quiz.WhoAreYou.DTOs.QuizDTO;
 import com.quiz.WhoAreYou.repositories.QuestionRepository;
 import com.quiz.WhoAreYou.repositories.QuizRepository;
 import jakarta.transaction.Transactional;
@@ -188,8 +185,30 @@ public class QuizService {
        return null;
     }
 
-    public QuizResultDTO mapQuizToQuizResult(Quiz quiz) {
-        QuizResultDTO quizResultDTO = new QuizResultDTO(quiz.getId(), quiz.getZsoltScore(), quiz.getColinScore(), quiz.getAnnaScore(), quiz.getThibyaaScore());
-        quizResultDTO.setZsoltScore(quiz.getZsoltScore());
-    }
+    public MessageDTO mapQuizToQuizResult(QuizResultDTO quizResultDTO) {
+       Optional<Quiz> optionalQuiz = quizRepository.findById(quizResultDTO.getQuizId());
+        MessageDTO messageDTO = new MessageDTO();
+       if(optionalQuiz.isPresent()){
+           Quiz quiz = optionalQuiz.get();
+           if(quizResultDTO.getTrainerName().equals("Zsolt")){
+               String bio = "You got "+quiz.getZsoltScore()+ " points for Zsolt - " +
+                       "The personality of a caffeine-overdosed golden retriever - Zsolt's wife \n" +
+                       "The absolute most handsome boy in the world - Zsolt's mum\n" +
+                       "I'm not saying he's annoying, but... - All of Zsolt's former/current colleagues, probably";
+               messageDTO.setMessage(bio);
+           } else if (quizResultDTO.getTrainerName().equals("Anna")) {
+               String bio ="You got "+quiz.getAnnaScore()+ " points for Anna ";
+               messageDTO.setMessage(bio);
+           } else if (quizResultDTO.getTrainerName().equals("Colin")) {
+               String bio = "You got " + quiz.getColinScore() + " points for Colin ";
+               messageDTO.setMessage(bio);
+           } else if (quizResultDTO.getTrainerName().equals("Thibyaa")){
+               String bio = "You got "+quiz.getThibyaaScore()+ " points for Thibyaa";
+               messageDTO.setMessage(bio);
+           }
+       return messageDTO;
+       }
+        return null;
+       }
+
 }
