@@ -188,25 +188,35 @@ public class QuizService {
     public MessageDTO mapQuizToQuizResult(QuizResultDTO quizResultDTO) {
        Optional<Quiz> optionalQuiz = quizRepository.findById(quizResultDTO.getQuizId());
         MessageDTO messageDTO = new MessageDTO();
+        String trainerName = quizResultDTO.getTrainerName();
        if(optionalQuiz.isPresent()){
            Quiz quiz = optionalQuiz.get();
            if(quiz.getFinished()) {
-               if (quizResultDTO.getTrainerName().equals("Zsolt")) {
-                   String bio = "You got " + quiz.getZsoltScore() + " points for Zsolt - " +
-                           "The personality of a caffeine-overdosed golden retriever - Zsolt's wife \\n" +
-                           "The absolute most handsome boy in the world - Zsolt's mum \\n" +
-                           "I'm not saying he's annoying, but... - All of Zsolt's former/current colleagues, probably";
-                   messageDTO.setMessage(bio);
-               } else if (quizResultDTO.getTrainerName().equals("Anna")) {
-                   String bio = "You got " + quiz.getAnnaScore() + " points for Anna ";
-                   messageDTO.setMessage(bio);
-               } else if (quizResultDTO.getTrainerName().equals("Colin")) {
-                   String bio = "You got " + quiz.getColinScore() + " points for Colin " + "- Fuelled by biscuits and coffee." +
-                           " Average guitarist." + " Once got stuck in a lift with Gordon Brown (before he was Prime Minister)";
-                   messageDTO.setMessage(bio);
-               } else if (quizResultDTO.getTrainerName().equals("Thibyaa")) {
-                   String bio = "You got " + quiz.getThibyaaScore() + " points for Thibyaa";
-                   messageDTO.setMessage(bio);
+               switch (trainerName) {
+                   case "Zsolt":
+                       String bioZsolt = "You got " + quiz.getZsoltScore() + " points for Zsolt - " +
+                               "The personality of a caffeine-overdosed golden retriever - Zsolt's wife \\n" +
+                               "The absolute most handsome boy in the world - Zsolt's mum \\n" +
+                               "I'm not saying he's annoying, but... " +
+                               "- All of Zsolt's former/current colleagues, probably";
+                       messageDTO.setMessage(bioZsolt);
+                       break;
+                   case "Anna":
+                       String bioAnna = "You got " + quiz.getAnnaScore() + " points for Anna ";
+                       messageDTO.setMessage(bioAnna);
+                       break;
+                   case "Colin":
+                       String bioColin = "You got " + quiz.getColinScore() + " points for Colin " +
+                               "- Fuelled by biscuits and coffee." + " Average guitarist." +
+                               " Once got stuck in a lift with Gordon Brown (before he was Prime Minister)";
+                        messageDTO.setMessage(bioColin);
+                        break;
+                   case " Thiybaa":
+                       String bioThiybaa = "You got " + quiz.getThibyaaScore() + " points for Thibyaa";
+                        messageDTO.setMessage(bioThiybaa);
+                        break;
+                   default:
+                       break;
                }
                return messageDTO;
            }
