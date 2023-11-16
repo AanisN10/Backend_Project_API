@@ -216,6 +216,8 @@ public class QuizService {
                         messageDTO.setMessage(bioThiybaa);
                         break;
                    default:
+                       String defaultBio = "Unknown trainer";
+                       messageDTO.setMessage(defaultBio);
                        break;
                }
                return messageDTO;
@@ -251,10 +253,7 @@ public class QuizService {
                     break;
                 case "Thibyaa":
                     totalScore += quiz.getThibyaaScore();
-                    break;
-
-                default:
-                    break;
+                    break;R
             }
         }
         return new ScoreDTO(totalScore);

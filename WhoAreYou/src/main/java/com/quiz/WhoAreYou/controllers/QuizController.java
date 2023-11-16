@@ -22,31 +22,47 @@ public class QuizController {
 
     @GetMapping
     public ResponseEntity<List<Quiz>> getAllQuizzes(){
-        return new ResponseEntity<>(quizService.findAllQuizzes(), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(quizService.findAllQuizzes(), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping (value = "/{id}")
     public ResponseEntity<Quiz> getQuizById(@PathVariable Long id){
-        Optional<Quiz> getQuizById = quizService.findQuizById(id);
-        if(getQuizById.isPresent()){
-            return new ResponseEntity<>(getQuizById.get(), HttpStatus.OK);
-        } else{
-            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            Optional<Quiz> getQuizById = quizService.findQuizById(id);
+            if (getQuizById.isPresent()) {
+                return new ResponseEntity<>(getQuizById.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping
     public ResponseEntity<Quiz> makeNewQuiz(@RequestBody QuizDTO quizDTO){
-        return new ResponseEntity<>(quizService.addNewQuiz(quizDTO), HttpStatus.CREATED);
+        try {
+            return new ResponseEntity<>(quizService.addNewQuiz(quizDTO), HttpStatus.CREATED);
+            } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Long> deleteQuizById(@PathVariable Long id){
-        Long removeById = quizService.removeQuizById(id);
-        if(removeById != null){
-            return new ResponseEntity<Long>(id, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            Long removeById = quizService.removeQuizById(id);
+            if (removeById != null) {
+                return new ResponseEntity<Long>(id, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -114,22 +130,35 @@ public class QuizController {
     @GetMapping(value = "/{quizId}/result")
     public ResponseEntity<MessageDTO> getTrainerResultById(@PathVariable Long quizId,
                                                            @RequestParam String trainerName){
-        QuizResultDTO quizResultDTO = new QuizResultDTO(trainerName,quizId);
-        return new ResponseEntity<>(quizService.mapQuizToQuizResult(quizResultDTO),HttpStatus.OK);
+        try {
+            QuizResultDTO quizResultDTO = new QuizResultDTO(trainerName, quizId);
+            return new ResponseEntity<>(quizService.mapQuizToQuizResult(quizResultDTO), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
      }
 
      @GetMapping(value = "/{quizId}/{questionNumber}")
     public ResponseEntity <Question> getQuestionByQuestionNumber(
             @PathVariable Long quizId,
             @PathVariable int questionNumber){
-        return new ResponseEntity<>(quizService.findQuestionByNumber(quizId,questionNumber) ,HttpStatus.OK );
+        try {
+            return new ResponseEntity<>(quizService.findQuestionByNumber(quizId, questionNumber), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
      }
 
      @GetMapping(value = "/allResults")
     public ResponseEntity<ScoreDTO> getTotalResultByTrainer(@RequestParam String trainerName){
-        return new ResponseEntity<>(quizService.getTotalResultByTrainer(trainerName),HttpStatus.OK);
-     }}
+        try {
+            return new ResponseEntity<>(quizService.getTotalResultByTrainer(trainerName), HttpStatus.OK);
+        } catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+     }
+}
 
 
 

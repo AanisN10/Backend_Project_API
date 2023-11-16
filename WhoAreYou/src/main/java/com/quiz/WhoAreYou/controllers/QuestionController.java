@@ -21,7 +21,11 @@ public class QuestionController {
 
     @GetMapping
     public ResponseEntity<List<Question>> getAllQuestions(){
-        return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping
