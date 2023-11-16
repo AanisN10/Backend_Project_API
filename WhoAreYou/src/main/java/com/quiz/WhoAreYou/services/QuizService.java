@@ -157,14 +157,16 @@ public class QuizService {
 
 
     public Quiz finishQuiz(Long quizId){
-            int pointIncrement = 1;
-           Optional<Quiz> optionalQuiz= quizRepository.findById(quizId);
+        int pointIncrement = 1;
+        Optional<Quiz> optionalQuiz= quizRepository.findById(quizId);
 
-           if(optionalQuiz.isPresent()) {
-               Quiz quiz = optionalQuiz.get();
-               for(List<String>questionState:quiz.getCurrentState()) {
+       if(optionalQuiz.isPresent()) {
+           Quiz quiz = optionalQuiz.get();
+           if (!quiz.getFinished()) {
+               quiz.setFinished(true);
+               for (List<String> questionState : quiz.getCurrentState()) {
                    Question question = questionRepository.findById(Long.valueOf(questionState.get(1))).get();
-                   String userAnswer= questionState.get(0);
+                   String userAnswer = questionState.get(0);
                    if (userAnswer.equals(question.getZsoltAnswer())) {
                        quiz.setZsoltScore(quiz.getZsoltScore() + pointIncrement);
                    }
@@ -181,6 +183,7 @@ public class QuizService {
                }
                quizRepository.save(quiz);
            }
-           return null;
-        }
+       }
+       return null;
+    }
 }
