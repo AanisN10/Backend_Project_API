@@ -100,48 +100,6 @@ public class QuizService {
         }
     }
 
-//    @Transactional
-//    public Quiz submitAnswer (Long id, AnswerDTO answerDTO) {
-//        Optional<Quiz> optionalQuiz = quizRepository.findById(id);
-//        if (optionalQuiz.isPresent()) {
-//            Quiz quiz = optionalQuiz.get();
-//
-//            if (!quiz.getFinished() && quiz.getRunning()) {
-//                Long questionId = answerDTO.getQuestionId();
-//                String userAnswer = answerDTO.getUserAnswer();
-//                updateScores(quiz, questionId, userAnswer);
-//                //quiz.setCurrentQuestionCounter();
-//                quizRepository.save(quiz);
-//                return quiz;
-//            }
-//        }
-//        return null;
-//    }
-//
-//        public void updateScores (Quiz quiz, Long questionId, String userAnswer) {
-//
-//            int pointIncrement = 1;
-//            Question question = questionRepository.findById(questionId).get();
-//            if (userAnswer.equals(question.getZsoltAnswer())){
-//                quiz.setZsoltScore(quiz.getZsoltScore() + pointIncrement);
-//
-//
-//            }
-//            if (userAnswer.equals(question.getColinAnswer())) {
-//                quiz.setColinScore(quiz.getColinScore()+ pointIncrement);
-//            }
-//            if (userAnswer.equals(question.getAnnaAnswer())) {
-//                quiz.setAnnaScore(quiz.getAnnaScore()+ pointIncrement);
-//            }
-//
-//            if (userAnswer.equals(question.getThibyaaAnswer())) {
-//                quiz.setThibyaaScore(quiz.getThibyaaScore() + pointIncrement);
-//            }
-//            quizRepository.save(quiz);
-//        }
-//
-//
-//
     public Quiz startQuiz(Long id) {
         Optional<Quiz> optionalQuiz  = quizRepository.findById(id);
         if(optionalQuiz.isPresent()){
@@ -196,7 +154,6 @@ public class QuizService {
 
 
     }
-
 
 
     public Quiz finishQuiz(Long quizId){
