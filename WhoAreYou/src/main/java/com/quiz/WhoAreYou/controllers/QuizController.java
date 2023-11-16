@@ -1,7 +1,9 @@
 package com.quiz.WhoAreYou.controllers;
 
 import com.quiz.WhoAreYou.DTOs.*;
+import com.quiz.WhoAreYou.models.Question;
 import com.quiz.WhoAreYou.models.Quiz;
+import com.quiz.WhoAreYou.services.QuestionService;
 import com.quiz.WhoAreYou.services.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -106,5 +108,15 @@ public class QuizController {
                                                            @RequestParam String trainerName){
         QuizResultDTO quizResultDTO = new QuizResultDTO(trainerName,quizId);
         return new ResponseEntity<>(quizService.mapQuizToQuizResult(quizResultDTO),HttpStatus.OK);
-        }
+     }
+
+     @GetMapping(value = "/{quizId}/{questionNumber}")
+    public ResponseEntity <Question> getQuestionByQuestionNumber(
+            @PathVariable Long quizId,
+            @PathVariable int questionNumber){
+        return new ResponseEntity<>(quizService.findQuestionByNumber(quizId,questionNumber) ,HttpStatus.OK );
+
+     }
 }
+
+
