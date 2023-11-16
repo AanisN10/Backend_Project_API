@@ -93,14 +93,22 @@ public class QuizController {
     public ResponseEntity<Quiz> answerQuestionFromQuiz(
             @PathVariable Long quizId,
             @RequestBody AnswerDTO answerDTO){
-        return new ResponseEntity<>(quizService.answerQuestionFromQuiz(quizId,answerDTO), HttpStatus.OK);
+        try{
+            return new ResponseEntity<>(quizService.answerQuestionFromQuiz(quizId,answerDTO), HttpStatus.OK);
+         } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 
     @PostMapping(value = "/finishQuiz/{quizId}")
     public ResponseEntity<Quiz> finishQuiz(
             @PathVariable Long quizId){
-        return new ResponseEntity<>(quizService.finishQuiz(quizId), HttpStatus.OK);
+        try{
+            return new ResponseEntity<>(quizService.finishQuiz(quizId), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(value = "/{quizId}/result")
