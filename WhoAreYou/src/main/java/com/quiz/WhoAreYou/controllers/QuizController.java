@@ -85,7 +85,7 @@ public class QuizController {
         }
     }
 
-    @PostMapping(value = "/startQuiz/{id}")
+    @GetMapping(value = "/startQuiz/{id}")
     public ResponseEntity<Quiz> startQuiz(@PathVariable Long id){
         try {
             Quiz startQuiz = quizService.startQuiz(id);
