@@ -192,15 +192,16 @@ public class QuizService {
            Quiz quiz = optionalQuiz.get();
            if(quizResultDTO.getTrainerName().equals("Zsolt")){
                String bio = "You got "+quiz.getZsoltScore()+ " points for Zsolt - " +
-                       "The personality of a caffeine-overdosed golden retriever - Zsolt's wife" + "\n" +
-                       "The absolute most handsome boy in the world - Zsolt's mum"+ "\n" +
+                       "The personality of a caffeine-overdosed golden retriever - Zsolt's wife \\n" +
+                       "The absolute most handsome boy in the world - Zsolt's mum \\n" +
                        "I'm not saying he's annoying, but... - All of Zsolt's former/current colleagues, probably";
                messageDTO.setMessage(bio);
            } else if (quizResultDTO.getTrainerName().equals("Anna")) {
                String bio ="You got "+quiz.getAnnaScore()+ " points for Anna ";
                messageDTO.setMessage(bio);
            } else if (quizResultDTO.getTrainerName().equals("Colin")) {
-               String bio = "You got " + quiz.getColinScore() + " points for Colin ";
+               String bio = "You got " + quiz.getColinScore() + " points for Colin "+ "- Fuelled by biscuits and coffee."+
+                       " Average guitarist." + " Once got stuck in a lift with Gordon Brown (before he was Prime Minister)";
                messageDTO.setMessage(bio);
            } else if (quizResultDTO.getTrainerName().equals("Thibyaa")){
                String bio = "You got "+quiz.getThibyaaScore()+ " points for Thibyaa";
