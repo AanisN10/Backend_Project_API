@@ -8,6 +8,7 @@ import com.quiz.WhoAreYou.repositories.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +45,15 @@ public class QuestionService {
             Question question = questionRepository.getById(id);
             for (Quiz quiz : question.getQuizzes()) {
                 quiz.removeQuestion(question);
+                List<String> toRemoveState = new ArrayList<>();
+                for (List<String> questionStates: quiz.getCurrentState()){
+                    if (questionStates.get(1).equals(id.toString())){
+                        toRemoveState = questionStates;
+                    }
+                }
+                if (!toRemoveState.isEmpty()) {
+                    quiz.removeQuestionState(toRemoveState);
+                }
             }
             questionRepository.deleteById(id);
             return id;

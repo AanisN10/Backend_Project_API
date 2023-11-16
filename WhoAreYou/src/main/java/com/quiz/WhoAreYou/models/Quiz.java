@@ -159,4 +159,9 @@ public class Quiz {
     public void setCurrentStatebyQuestionNumber(int questionNumber, List<String> questionState){
         this.currentState.set(questionNumber,questionState);
     }
+
+    public void removeQuestionState(List<String> questionState){
+        this.currentState.remove(questionState);
+    }
+
 }
