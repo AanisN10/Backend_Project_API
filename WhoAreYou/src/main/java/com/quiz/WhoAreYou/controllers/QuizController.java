@@ -138,6 +138,8 @@ public class QuizController {
         }
      }
 
+
+
      @GetMapping(value = "/{quizId}/{questionNumber}")
     public ResponseEntity <Question> getQuestionByQuestionNumber(
             @PathVariable Long quizId,
@@ -149,6 +151,18 @@ public class QuizController {
         }
 
      }
+
+    @GetMapping(value = "displayQuestion/{quizId}/{questionNumber}")
+    public ResponseEntity <DisplayQuestionDTO> getQuestionBodyAndOptionsByQuestionNumber(
+            @PathVariable Long quizId,
+            @PathVariable int questionNumber){
+        try {
+            return new ResponseEntity<>(quizService.findQuestionBodyByNumber(quizId, questionNumber), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
 
      @GetMapping(value = "/allResults")
     public ResponseEntity<ScoreDTO> getTotalResultByTrainer(@RequestParam String trainerName){

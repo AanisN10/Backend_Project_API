@@ -261,4 +261,14 @@ public class QuizService {
         }
         return new ScoreDTO(totalScore);
     }
+
+    public DisplayQuestionDTO findQuestionBodyByNumber(Long quizId, int questionNumber) {
+        Optional<Quiz> optionalQuiz = quizRepository.findById(quizId);
+        if (optionalQuiz.isPresent()){
+            Quiz quiz = optionalQuiz.get();
+            Question question = quiz.getQuestions().get(questionNumber);
+            return new DisplayQuestionDTO(question.getQuestion(),question.getOptionA(),question.getOptionB(),question.getOptionC(),question.getOptionD());
+        }
+        return null;
+    }
 }
