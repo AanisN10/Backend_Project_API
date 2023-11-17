@@ -203,7 +203,16 @@ public class QuizService {
                        messageDTO.setMessage(bioZsolt);
                        break;
                    case "Anna":
-                       String bioAnna = "You got " + quiz.getAnnaScore() + " points for Anna ";
+                       String bioAnna = "You got " + quiz.getAnnaScore() + " points for Anna - " +
+                               "Anna is a software developer trainer and mother-of-tweens-and-teens. " +
+                               "Her specialities are Java, Javascript, Python, beetroot chocolate cake, " +
+                               "chicken pie, and the family calendar.\n" +
+                               "Her children have described her as, \"nice but scary\", \"unpredictable\" " +
+                               "and \"a good listener\".\n" +
+                               "She loves reading, learning French, watching films, " +
+                               "talking to her family (and anyone else) and going for walks. " +
+                               "She is fuelled by tea (medium brewed and just a *drop* of milk pls) " +
+                               "and biscuits (hobnob or jaffa cake).";
                        messageDTO.setMessage(bioAnna);
                        break;
                    case "Colin":
