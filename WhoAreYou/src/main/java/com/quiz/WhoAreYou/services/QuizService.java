@@ -212,11 +212,11 @@ public class QuizService {
                                " Once got stuck in a lift with Gordon Brown (before he was Prime Minister)";
                         messageDTO.setMessage(bioColin);
                         break;
-                   case " Thiybaa":
-                       String bioThiybaa = "You got " + quiz.getThibyaaScore() + " points for Thibyaa -" + "I'm very "
+                   case " Thibyaa":
+                       String bioThibyaa = "You got " + quiz.getThibyaaScore() + " points for Thibyaa -" + "I'm very "
                                + "organised and meticulous, quite calm and perceived as nice by others but I'm the " +
                                "\"looks like a cinnamon roll could kill you\" kinda person";
-                        messageDTO.setMessage(bioThiybaa);
+                        messageDTO.setMessage(bioThibyaa);
                         break;
                    default:
                        String defaultBio = "Unknown trainer";
