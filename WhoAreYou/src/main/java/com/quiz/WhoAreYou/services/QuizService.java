@@ -213,7 +213,9 @@ public class QuizService {
                         messageDTO.setMessage(bioColin);
                         break;
                    case " Thiybaa":
-                       String bioThiybaa = "You got " + quiz.getThibyaaScore() + " points for Thibyaa";
+                       String bioThiybaa = "You got " + quiz.getThibyaaScore() + " points for Thibyaa -" + "I'm very "
+                               + "organised and meticulous, quite calm and perceived as nice by others but I'm the " +
+                               "\"looks like a cinnamon roll could kill you\" kinda person";
                         messageDTO.setMessage(bioThiybaa);
                         break;
                    default:
