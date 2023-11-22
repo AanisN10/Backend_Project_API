@@ -124,6 +124,17 @@ public class DataLoader implements ApplicationRunner {
                 "B",
                 "C");
 
+        Question question10 = new Question(
+                "A zombie apocalypse takes the world by storm. What's your stance?",
+                "No response",
+                "Stock up on canned food and bunker down, I'm not a zombie snack",
+                "I don't think there's much hope for me. My low athletic ability will lead to my imminent death. I guess I would just accept my fate?",
+                "\"Ah frick, finally\"",
+                "D",
+                "A",
+                "B",
+                "C");
+
 
         questionRepository.save(question1);
         questionRepository.save(question2);
@@ -134,8 +145,15 @@ public class DataLoader implements ApplicationRunner {
         questionRepository.save(question7);
         questionRepository.save(question8);
         questionRepository.save(question9);
+        questionRepository.save(question10);
 
-        Quiz quiz1 = new Quiz(false,0,0,0,0,9);
+        Quiz quiz1 = new Quiz(
+                false,
+                0,
+                0,
+                0,
+                0,
+                10);
 
         quizRepository.save(quiz1);
 
@@ -148,6 +166,7 @@ public class DataLoader implements ApplicationRunner {
         quiz1.addQuestion(question7);
         quiz1.addQuestion(question8);
         quiz1.addQuestion(question9);
+        quiz1.addQuestion(question10);
 
         quizRepository.save(quiz1);
     }
