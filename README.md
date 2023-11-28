@@ -52,7 +52,71 @@ mvn spring-boot:run
 
 6. Access the application at [https://localhost:8080](https://localhost:8080)
 
-Example Postman Collection at []()
+##Example demo run
+
+1. Randomize Quiz
+  
+   - Method: `GET`
+   - URL: `localhost:8080/quizzes/random?numberOfQuestions= 3`
+   - Created a quiz randomized with 3 questions.
+
+
+2. Start quiz
+
+    - Method: `GET`
+    - URL: `localhost:8080/quizzes/startQuiz/2`
+    - this will start the quiz with id 2.
+
+
+3. Display Question
+
+    - Method: `GET`
+    - URL: `localhost:8080/quizzes/displayQuestion/quizId/0`
+    - this will display the first question of the quiz
+
+
+4.  user answer to quiz
+
+    - Method: `POST`
+    - URL: `localhost:8080/quizzes/takeQuiz/2`
+    - this allows the user to answer the first question of the quiz, continue until questions have been answered.
+    - Example:
+      ```json
+      {
+          "questionNumber": 0 ,
+          "userAnswer" : "B"
+      }
+      ```
+5. Finish
+
+    - Method: `GET`
+    - URL: `localhost:8080/quizzes/finishQuiz/2`
+    - this will end quiz 2
+
+
+6. check quiz
+
+    - Method: `GET`
+    - URL: `localhost:8080/quizzes/2`
+    - this will show all the questions as well as the users response, the user would be allowed to change the answers to previous responses if the quiz is not        finished.
+
+
+
+7. display result 
+
+   - Method: `GET`
+   - URL: `localhost:8080/quizzes/quizId/result?trainerName=Thibyaa`
+   - This will display the user's score for that given trainer and that trainer's bio.
+   
+
+
+8. display total 
+   - Method: `GET`
+   - URL: `http://localhost:8080/quizzes/allResults?trainerName=Anna`
+   - This will display the accumulated scores for all finished quizzes
+
+
+ 
 
 ## Example Routes
 
