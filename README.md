@@ -113,7 +113,7 @@ mvn spring-boot:run
 8. Display total 
    - Method: `GET`
    - URL: `http://localhost:8080/quizzes/allResults?trainerName=Anna`
-   - This will display the accumulated scores for all finished quizzes
+   - This will display the accumulated scores for all finished quizzes for a specific trainer
 
 
  
