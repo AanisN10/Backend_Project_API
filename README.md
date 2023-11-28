@@ -32,7 +32,11 @@ git  clone https://github.com/AanisN10/Backend_Project_API
 cd WhoAreYou
 ```
 
-3. Ensure you have Java and Maven installed
+3. Ensure you have Java, Maven and PostgreSQL installed and running. Create the database:
+
+```bash
+createdb WhoAreYou
+```
 
 4. Build the project
 
@@ -47,6 +51,8 @@ mvn spring-boot:run
 ```
 
 6. Access the application at [https://localhost:8080](https://localhost:8080)
+
+Example Postman Collection at []()
 
 ## Example Routes
 
