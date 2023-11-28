@@ -52,7 +52,7 @@ mvn spring-boot:run
 
 6. Access the application at [https://localhost:8080](https://localhost:8080)
 
-##Example demo run
+## Example demo run
 
 1. Randomize Quiz
   
@@ -75,7 +75,7 @@ mvn spring-boot:run
     - this will display the first question of the quiz
 
 
-4.  user answer to quiz
+4. User answer to quiz
 
     - Method: `POST`
     - URL: `localhost:8080/quizzes/takeQuiz/2`
@@ -87,14 +87,14 @@ mvn spring-boot:run
           "userAnswer" : "B"
       }
       ```
-5. Finish
+5. Finish Quiz
 
     - Method: `GET`
     - URL: `localhost:8080/quizzes/finishQuiz/2`
     - this will end quiz 2
 
 
-6. check quiz
+6. Check quiz
 
     - Method: `GET`
     - URL: `localhost:8080/quizzes/2`
@@ -102,7 +102,7 @@ mvn spring-boot:run
 
 
 
-7. display result 
+7. Display result 
 
    - Method: `GET`
    - URL: `localhost:8080/quizzes/quizId/result?trainerName=Thibyaa`
@@ -110,7 +110,7 @@ mvn spring-boot:run
    
 
 
-8. display total 
+8. Display total 
    - Method: `GET`
    - URL: `http://localhost:8080/quizzes/allResults?trainerName=Anna`
    - This will display the accumulated scores for all finished quizzes
