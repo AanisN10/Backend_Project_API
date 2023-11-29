@@ -57,8 +57,8 @@ mvn spring-boot:run
 1. Randomize Quiz
   
    - Method: `GET`
-   - URL: `localhost:8080/quizzes/random?numberOfQuestions= 3`
-   - Created a quiz randomized with 3 questions.
+   - URL: `localhost:8080/quizzes/random?userName=UserA&numberOfQuestions=3`
+   - Created a quiz randomized with 3 questions for user UserA.
 
 
 2. Start quiz
@@ -98,8 +98,7 @@ mvn spring-boot:run
 
     - Method: `GET`
     - URL: `localhost:8080/quizzes/2`
-    - this will show all the questions as well as the users response, the user would be allowed to change the answers to previous responses if the quiz is not        finished.
-
+    - this will show all the questions as well as the users response, the user would be allowed to change the answers to previous responses if the quiz is not finished.
 
 
 7. Display result 
@@ -109,11 +108,16 @@ mvn spring-boot:run
    - This will display the user's score for that given trainer and that trainer's bio.
    
 
-
 8. Display total 
    - Method: `GET`
-   - URL: `http://localhost:8080/quizzes/allResults?trainerName=Anna`
+   - URL: `localhost:8080/quizzes/allResults?trainerName=Anna`
    - This will display the accumulated scores for all finished quizzes for a specific trainer
+
+
+9. Display all quizzes for user 
+   - Method: `GET`
+   - URL: `localhost:8080/quizzes/allQuizzes?userName=UserA`
+   - This will display the quizzes associated with UserA, can be used to allow the user to resume a quiz or look at completed ones
 
 
  
@@ -176,11 +180,7 @@ mvn spring-boot:run
   - Example:
     ```json
     {
-      "isFinished": false,
-      "zsoltScore": 0,
-      "colinScore": 0,
-      "annaScore": 0,
-      "thibyaaScore": 0,
+      "userName": "UserA" ,
       "numberOfQuestions": 10,
       "questionIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     }
@@ -218,7 +218,11 @@ mvn spring-boot:run
 
 - **Get Random Quiz:**
   - Method: `GET`
-  - URL: `quizzes/random?numberOfQuestions=`
+  - URL: `localhost:8080/quizzes/random?userName={}&numberOfQuestions={}`
+
+- **Get All Quizzes for User:**
+  - Method: `GET`
+  - URL: `localhost:8080/quizzes/allQuizzes?userName=`
 
 - **Answer a Question in a Quiz by Quiz ID:**
   - Method: `POST`
