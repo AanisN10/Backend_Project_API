@@ -23,6 +23,8 @@ public class Quiz {
     private Boolean isRunning;
 
     @Column
+    private String userName;
+    @Column
     private int zsoltScore;
     @Column
     private int colinScore;
@@ -44,17 +46,17 @@ public class Quiz {
             inverseJoinColumns = @JoinColumn(name = "question_id"))
     private List<Question> questions;
 
-    public Quiz(Boolean isFinished, int zsoltScore, int colinScore, int annaScore, int thibyaaScore, int numberOfQuestions){
-        this.isFinished = isFinished;
-        this.zsoltScore = zsoltScore;
-        this.colinScore = colinScore;
-        this.annaScore = annaScore;
-        this.thibyaaScore = thibyaaScore;
+    public Quiz(String userName, int numberOfQuestions){
+        this.userName = userName;
+        this.numberOfQuestions = numberOfQuestions;
+        this.isFinished = false;
+        this.zsoltScore = 0;
+        this.colinScore = 0;
+        this.annaScore = 0;
+        this.thibyaaScore = 0;
         this.questions = new ArrayList<>();
         this.isRunning = false;
         this.currentState = new ArrayList<>();
-        this.numberOfQuestions = numberOfQuestions;
-
     }
 
     public Quiz() {
@@ -157,4 +159,11 @@ public class Quiz {
         this.currentState.remove(questionState);
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

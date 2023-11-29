@@ -96,9 +96,9 @@ public class QuizController {
     }
 
     @GetMapping(value = "/random")
-    public ResponseEntity<Quiz> createRandomQuiz(@RequestParam int numberOfQuestions) throws Exception {
+    public ResponseEntity<Quiz> createRandomQuiz(@RequestParam String userName, @RequestParam int numberOfQuestions) throws Exception {
         try {
-            Quiz quiz = quizService.createRandomQuiz(numberOfQuestions);
+            Quiz quiz = quizService.createRandomQuiz(userName,numberOfQuestions);
             return new ResponseEntity<>(quiz, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -172,6 +172,15 @@ public class QuizController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
      }
+
+    @GetMapping(value = "/allQuizzes")
+    public ResponseEntity<List<Quiz>> getAllQuizzesByUserName(@RequestParam String userName){
+        try {
+            return new ResponseEntity<>(quizService.getQuizzesByUserName(userName), HttpStatus.OK);
+        } catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }
 
 

@@ -148,11 +148,7 @@ public class DataLoader implements ApplicationRunner {
         questionRepository.save(question10);
 
         Quiz quiz1 = new Quiz(
-                false,
-                0,
-                0,
-                0,
-                0,
+                "UserA",
                 10);
 
         quizRepository.save(quiz1);

@@ -29,7 +29,7 @@ public class QuizService {
     }
 
     public Quiz addNewQuiz(QuizDTO quizDTO) {
-        Quiz quiz = new Quiz(quizDTO.getFinished(), quizDTO.getZsoltScore(), quizDTO.getColinScore(), quizDTO.getAnnaScore(), quizDTO.getThibyaaScore(), quizDTO.getNumberOfQuestions());
+        Quiz quiz = new Quiz(quizDTO.getUserName(), quizDTO.getNumberOfQuestions());
 
         for (Long questionId : quizDTO.getQuestionIds()) {
             if (questionRepository.findById(questionId).isPresent()) {
@@ -120,7 +120,7 @@ public class QuizService {
       return null;
     }
 
-    public Quiz createRandomQuiz(int numberOfQuestions) throws Exception {
+    public Quiz createRandomQuiz(String userName, int numberOfQuestions) throws Exception {
         List<Question> allQuestions = questionRepository.findAll();
 
         if (allQuestions.size() < numberOfQuestions){
@@ -129,7 +129,7 @@ public class QuizService {
 
         Collections.shuffle(allQuestions);
         List<Question> selectedQuestions = allQuestions.subList(0, numberOfQuestions);
-        Quiz quiz = new Quiz(false, 0, 0, 0, 0, numberOfQuestions);
+        Quiz quiz = new Quiz(userName, numberOfQuestions);
         for (Question question : selectedQuestions){
             quiz.addQuestion(question);
         }
@@ -279,5 +279,9 @@ public class QuizService {
             return new DisplayQuestionDTO(question.getQuestion(),question.getOptionA(),question.getOptionB(),question.getOptionC(),question.getOptionD());
         }
         return null;
+    }
+
+    public List<Quiz> getQuizzesByUserName(String userName) {
+        return quizRepository.findByUserNameEquals(userName);
     }
 }
