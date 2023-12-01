@@ -6,16 +6,16 @@ The WhoAreYou Quiz App is a web application that allows users to create and take
 
 ## Developers
 
-* [Aanis](https://github.com/AanisN10)
-* [Janet](https://github.com/JMen121)
-* [Piraven](https://github.com/PiravenNan)
-* [Suzi](https://github.com/sctowers)
+- [Aanis](https://github.com/AanisN10)
+- [Janet](https://github.com/JMen121)
+- [Piraven](https://github.com/PiravenNan)
+- [Suzi](https://github.com/sctowers)
 
 ## Libraries Used
 
 - Spring Boot
 - Spring Data JPA
-- Spring Web 
+- Spring Web
 - Postgresql
 
 ## Setup Instructions
@@ -44,7 +44,7 @@ createdb WhoAreYou
 mvn clean install
 ```
 
-5. Start the application 
+5. Start the application
 
 ```bash
 mvn spring-boot:run
@@ -55,86 +55,81 @@ mvn spring-boot:run
 ## Example demo run
 
 1. Randomize Quiz
-  
-   - Method: `GET`
+
+   - Method: `POST`
    - URL: `localhost:8080/quizzes/random?userName=UserA&numberOfQuestions=3`
    - Created a quiz randomized with 3 questions for user UserA.
 
-
 2. Start quiz
 
-    - Method: `GET`
-    - URL: `localhost:8080/quizzes/startQuiz/2`
-    - this will start the quiz with id 2.
-
+   - Method: `GET`
+   - URL: `localhost:8080/quizzes/startQuiz/2`
+   - this will start the quiz with id 2.
 
 3. Display Question
 
-    - Method: `GET`
-    - URL: `localhost:8080/quizzes/displayQuestion/quizId/0`
-    - this will display the first question of the quiz
-
+   - Method: `GET`
+   - URL: `localhost:8080/quizzes/displayQuestion/quizId/0`
+   - this will display the first question of the quiz
 
 4. User answer to quiz
 
-    - Method: `POST`
-    - URL: `localhost:8080/quizzes/takeQuiz/2`
-    - this allows the user to answer the first question of the quiz, continue until questions have been answered.
-    - Example:
-      ```json
-      {
-          "questionNumber": 0 ,
-          "userAnswer" : "B"
-      }
-      ```
+   - Method: `POST`
+   - URL: `localhost:8080/quizzes/takeQuiz/2`
+   - this allows the user to answer the first question of the quiz, continue until questions have been answered.
+   - Example:
+     ```json
+     {
+       "questionNumber": 0,
+       "userAnswer": "B"
+     }
+     ```
+
 5. Finish Quiz
 
-    - Method: `GET`
-    - URL: `localhost:8080/quizzes/finishQuiz/2`
-    - this will end quiz 2
-
+   - Method: `GET`
+   - URL: `localhost:8080/quizzes/finishQuiz/2`
+   - this will end quiz 2
 
 6. Check quiz
 
-    - Method: `GET`
-    - URL: `localhost:8080/quizzes/2`
-    - this will show all the questions as well as the users response, the user would be allowed to change the answers to previous responses if the quiz is not finished.
+   - Method: `GET`
+   - URL: `localhost:8080/quizzes/2`
+   - this will show all the questions as well as the users response, the user would be allowed to change the answers to previous responses if the quiz is not finished.
 
-
-7. Display result 
+7. Display result
 
    - Method: `GET`
    - URL: `localhost:8080/quizzes/quizId/result?trainerName=Thibyaa`
    - This will display the user's score for that given trainer and that trainer's bio.
-   
 
-8. Display total 
+8. Display total
+
    - Method: `GET`
    - URL: `localhost:8080/quizzes/allResults?trainerName=Anna`
    - This will display the accumulated scores for all finished quizzes for a specific trainer
 
-
-9. Display all quizzes for user 
+9. Display all quizzes for user
    - Method: `GET`
    - URL: `localhost:8080/quizzes/allQuizzes?userName=UserA`
    - This will display the quizzes associated with UserA, can be used to allow the user to resume a quiz or look at completed ones
-
-
- 
 
 ## Example Routes
 
 ### Questions
 
 - **Get All Questions:**
+
   - Method: `GET`
   - URL: `/questions`
 
 - **Get Question by ID:**
+
   - Method: `GET`
   - URL: `/questions/{id}`
 
 - **Create New Question:**
+
   - Method: `POST`
   - URL: `/questions`
   - Request Body: JSON with question details
@@ -155,6 +150,7 @@ mvn spring-boot:run
     ```
 
 - **Update Question by ID:**
+
   - Method: `PATCH`
   - URL: `questions/{id}`
   - Request Body: JSON with question details
@@ -166,85 +162,87 @@ mvn spring-boot:run
 ### Quizzes
 
 - **Get All Quizzes:**
+
   - Method: `GET`
   - URL: `/quizzes`
 
 - **Get Quiz by ID:**
+
   - Method: `GET`
   - URL: `/quizzes/{id}`
 
-- **Create New Quiz:**
-  - Method: `POST`
-  - URL: `/quizzes`
-  - Request Body: JSON with quiz details
-  - Example:
-    ```json
-    {
-      "userName": "UserA" ,
-      "numberOfQuestions": 10,
-      "questionIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    }
-    ```
-
 - **Delete Quiz by ID:**
+
   - Method: `DELETE`
   - URL: `/quizzes/{id}`
 
 - **Add Question To Quiz by ID:**
+
   - Method: `POST`
   - URL: `quizzes/{id}`
   - Request Body: JSON with question details
   - Example:
+
   ```json
-    {
-      "questionIds": [1, 10]
-    }
-    ```
+  {
+    "questionIds": [1, 10]
+  }
+  ```
 
 - **Remove Question From Quiz by ID:**
+
   - Method: `POST`
   - URL: `quizzes/removeQuestion/{id}`
   - Request Body: JSON with question details
   - Example:
+
   ```json
-    {
-      "questionIds": [1, 10]
-    }
-    ```
+  {
+    "questionIds": [1, 10]
+  }
+  ```
 
 - **Start Quiz by ID:**
+
   - Method: `GET`
   - URL: `quizzes/startQuiz/{id}`
 
 - **Get Random Quiz:**
-  - Method: `GET`
+
+  - Method: `POST`
   - URL: `localhost:8080/quizzes/random?userName={}&numberOfQuestions={}`
 
 - **Get All Quizzes for User:**
+
   - Method: `GET`
   - URL: `localhost:8080/quizzes/allQuizzes?userName=`
 
 - **Answer a Question in a Quiz by Quiz ID:**
+
   - Method: `POST`
   - URL: `quizzes/takeQuiz/{quizID}`
   - Request Body: JSON with question ID and user answer details
   - Example:
+
   ```json
-    {
-      "questionNumber" : 1,
-      "userAnswer" : "B"
-    }
+  {
+    "questionNumber": 1,
+    "userAnswer": "B"
+  }
   ```
 
 - **Finish Quiz by Quiz ID:**
+
   - Method: `GET`
   - URL: `quizzes/finishQuiz/{quizId}`
 
 - **Get Trainer Result by Quiz ID:**
+
   - Method: `GET`
   - URL: `quizzes/{quizId}/result`
 
 - **Get Question By Question Number**
+
   - Method: `GET`
   - URL: `quizzes/{quizID}/questionNumber`
 
@@ -253,17 +251,19 @@ mvn spring-boot:run
   - URL: `quizzes/allResults`
 
 ### MVP and Extensions
-- The MVP includes basic CRUD operations for quizzes and questions.
-  * Add quiz questions
-  * Display all quiz questions
-  * Return a list of quiz questions with a shared property (provide “a quiz”)
-  * Implement this firstly as a hard-coded route and then in relation to a Quiz object
-  * Update a quiz question
-  * Delete a quiz question
-  * Provide a result/score based on the answers
 
-- Extensions include features like 
-  * Starting a quiz 
-  * Creating a random quiz 
-  * Submitting answers
-  * Can change responses until submission
+- The MVP includes basic CRUD operations for quizzes and questions.
+
+  - Add quiz questions
+  - Display all quiz questions
+  - Return a list of quiz questions with a shared property (provide “a quiz”)
+  - Implement this firstly as a hard-coded route and then in relation to a Quiz object
+  - Update a quiz question
+  - Delete a quiz question
+  - Provide a result/score based on the answers
+
+- Extensions include features like
+  - Starting a quiz
+  - Creating a random quiz
+  - Submitting answers
+  - Can change responses until submission
