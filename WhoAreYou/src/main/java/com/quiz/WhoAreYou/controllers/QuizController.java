@@ -43,14 +43,14 @@ public class QuizController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<Quiz> makeNewQuiz(@RequestBody QuizDTO quizDTO){
-        try {
-            return new ResponseEntity<>(quizService.addNewQuiz(quizDTO), HttpStatus.CREATED);
-            } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @PostMapping
+//    public ResponseEntity<Quiz> makeNewQuiz(@RequestBody QuizDTO quizDTO){
+//        try {
+//            return new ResponseEntity<>(quizService.addNewQuiz(quizDTO), HttpStatus.CREATED);
+//            } catch (Exception e){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Long> deleteQuizById(@PathVariable Long id){
@@ -95,7 +95,7 @@ public class QuizController {
         }
     }
 
-    @GetMapping(value = "/random")
+    @PostMapping(value = "/random")
     public ResponseEntity<Quiz> createRandomQuiz(@RequestParam String userName, @RequestParam int numberOfQuestions) throws Exception {
         try {
             Quiz quiz = quizService.createRandomQuiz(userName,numberOfQuestions);
